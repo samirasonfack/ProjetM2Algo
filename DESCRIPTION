@@ -1,0 +1,13 @@
+Package: ProjetM2Algo
+Type: Package
+Title: Implementation of DTW algorithms for time series comparison
+Version: 0.1.0
+Author: Samira Sonfack, Sarah Eliko, Fatima-Zhara Aklila
+Maintainer: The package maintainer <samira.sonfack@ensiie.eu>
+Description: The package implements versions of DTW algorithms with dynamic programming.One naive version and one optimized to reduce time complexity.    The complexities of both approaches are simulated and compared  with application on financial data time series.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports: Rcpp (>= 1.0.13)
+LinkingTo: Rcpp
+RoxygenNote: 7.3.3
