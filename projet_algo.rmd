@@ -186,7 +186,6 @@ Ainsi, si le graphique \(\log(n)\) -- \(\log(T)\) présente une pente
 proche de \(2\), cela confirme expérimentalement la complexité quadratique
 théorique du DTW.
 
-
 ```{r}
 # R
 taille_vecteurs <- seq(400, 5000, by = 50)
