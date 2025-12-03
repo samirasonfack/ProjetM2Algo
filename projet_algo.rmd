@@ -3,16 +3,16 @@ title: "Projet d’Algorithmique"
 author: "Ton Nom"
 date: "`r format(Sys.Date(), '%d %B %Y')`"
 output:
+  html_document:
+    toc: true
+    toc_depth: '2'
+    df_print: paged
   pdf_document:
     toc: true
     toc_depth: 2
     number_sections: true
     highlight: tango
     latex_engine: xelatex
-  html_document:
-    toc: true
-    toc_depth: '2'
-    df_print: paged
 geometry: margin=2.5cm
 fontsize: 12pt
 ---
@@ -32,7 +32,7 @@ La résolution d’une problématique passe d’abord par l’évaluation de la 
 
 Une série temporelle est une suite chronologique de valeurs numériques.
 Les séries temporelles sont utilisées dans plusieurs domaines, comme en médecine, par exemple pour le suivi d’une constante vitale au cours du temps, ou encore en finance pour le suivi du cours d’une action.
-Dans ces deux disciplines, l’analyse de ces séries temporelles peut être cruciale, notamment pour le diagnostic d’une anomalie ou la détection d’un comportement particulier.
+Dans ces deux disciplines, l’analyse de ces séries temporelles peut être cruciale, notamment pour le diagnostic d’une anomalie ou de la détection d’un comportement particulier.
 Dans notre cas, nous allons nous intéresser à une méthode permettant de classifier les séries temporelles.
 Dans un premier temps, nous allons utiliser deux algorithmes qui vont nous permettre de comparer deux séries entre elles.
 Plus précisément, nous allons utiliser l’algorithme DTW, puis une amélioration de cet algorithme appelée FastDTW.
@@ -109,6 +109,8 @@ Path correspond au chemin optimal.
 La complexité en temps de l’algorithme DTW est de l’ordre de $O(NM)$.
 
 
+
+
 ## Exemple d'application
 
 Considérons les deux séries temporelles suivantes :
@@ -162,16 +164,36 @@ dtw_result <- dtw(x, y)
 dtw_result
 ```
 
-Maintenant nous allons essayer de retrouver la complexité de l'algorithme. 
+Nous cherchons maintenant à retrouver expérimentalement la complexité de l’algorithme DTW.
+Lorsque les deux séries ont la même longueur \(n\), le temps d'exécution peut alors s’écrire sous la forme :
+
+\[
+T(n) = C \cdot n^2,
+\]
+
+où \(C\) est une constante correspondant au coût d’un calcul élémentaire. Cette constante ne dépend pas de \(n\).
+
+Pour analyser la complexité à partir des mesures expérimentales, nous traçons le graphique
+en échelle log-log. En prenant le logarithme de l’expression précédente, on obtient :
+
+\[
+\log T(n) = \log C + 2 \log n.
+\]
+
+Cette équation est de la forme d’une droite,
+dont l’ordonnée à l’origine est \(\log C\) et dont la pente vaut \(2\).
+Ainsi, si le graphique \(\log(n)\) -- \(\log(T)\) présente une pente
+proche de \(2\), cela confirme expérimentalement la complexité quadratique
+théorique du DTW.
+
 
 ```{r}
-# Vecteurs de tailles à tester
+# R
 taille_vecteurs <- seq(400, 5000, by = 50)
 
 # vecteur vide temps pour garder le temps d’exécution 
 temps <- numeric(length(taille_vecteurs))
 
-# Boucle de test
 for (k in seq_along(taille_vecteurs)) {
   n <- taille_vecteurs[k]
   x <- runif(n)  # crée un vecteur aléatoire
@@ -180,7 +202,6 @@ for (k in seq_along(taille_vecteurs)) {
   temps[k] <- system.time(dtw(x, y))["elapsed"]
 }
 
-# Regrouper les résultats
 resultats <- data.frame(
   Taille = taille_vecteurs,
   Temps = temps
@@ -193,19 +214,28 @@ plot(resultats$Taille, resultats$Temps, type = "b", pch = 19, col = "blue",
 
 plot(log(resultats$Taille), log(resultats$Temps), type = "b", pch = 19, col = "blue",
      main = "Complexité expérimentale de l'algorithme DTW",
-     xlab = "Taille des vecteurs (n)",
-     ylab = "Temps d'exécution (secondes)")
+     xlab = "log(Taille des vecteurs (n))",
+     ylab = "log(Temps d'exécution (secondes))")
+
+regression <- lm(log(Temps) ~ log(Taille), data = resultats)
+pente <- coef(regression)[2]
+intercept <- coef(regression)[1]
+
+cat("Pente estimée sur le graphique log-log : ", round(pente, 2), "\n")
+
+# Ajouter la droite de régression sur le graphique log-log
+abline(regression, col = "red", lwd = 2)
 
 ```
 
 ```{r}
-# Vecteurs de tailles à tester
+# C++
 taille_vecteurs <- seq(400, 5000, by = 50)
 
 # vecteur vide temps pour garder le temps d’exécution 
 temps <- numeric(length(taille_vecteurs))
 
-# Boucle de test
+
 for (k in seq_along(taille_vecteurs)) {
   n <- taille_vecteurs[k]
   x <- runif(n)  # crée un vecteur aléatoire
@@ -214,7 +244,6 @@ for (k in seq_along(taille_vecteurs)) {
   temps[k] <- system.time(dtw_rcpp(x, y))["elapsed"]
 }
 
-# Regrouper les résultats
 resultats <- data.frame(
   Taille = taille_vecteurs,
   Temps = temps
@@ -227,8 +256,17 @@ plot(resultats$Taille, resultats$Temps, type = "b", pch = 19, col = "blue",
 
 plot(log(resultats$Taille), log(resultats$Temps), type = "b", pch = 19, col = "blue",
      main = "Complexité expérimentale de l'algorithme DTW",
-     xlab = "Taille des vecteurs (n)",
-     ylab = "Temps d'exécution (secondes)")
+     xlab = "log(Taille des vecteurs (n))",
+     ylab = "log(Temps d'exécution (secondes))")
+
+regression <- lm(log(Temps) ~ log(Taille), data = resultats)
+pente <- coef(regression)[2]
+intercept <- coef(regression)[1]
+
+cat("Pente estimée sur le graphique log-log : ", round(pente, 2), "\n")
+
+# Ajouter la droite de régression sur le graphique log-log
+abline(regression, col = "red", lwd = 2)
 ```
 
 
