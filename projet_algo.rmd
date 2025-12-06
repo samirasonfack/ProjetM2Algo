@@ -206,10 +206,13 @@ resultats <- data.frame(
   Temps = temps
 )
 
+
 plot(resultats$Taille, resultats$Temps, type = "b", pch = 19, col = "blue",
      main = "Complexité expérimentale de l'algorithme DTW",
      xlab = "Taille des vecteurs (n)",
      ylab = "Temps d'exécution (secondes)")
+dev.off() 
+
 
 plot(log(resultats$Taille), log(resultats$Temps), type = "b", pch = 19, col = "blue",
      main = "Complexité expérimentale de l'algorithme DTW",
@@ -224,6 +227,7 @@ cat("Pente estimée sur le graphique log-log : ", round(pente, 2), "\n")
 
 # Ajouter la droite de régression sur le graphique log-log
 abline(regression, col = "red", lwd = 2)
+
 
 ```
 
@@ -248,10 +252,12 @@ resultats <- data.frame(
   Temps = temps
 )
 
+
 plot(resultats$Taille, resultats$Temps, type = "b", pch = 19, col = "blue",
      main = "Complexité expérimentale de l'algorithme DTW",
      xlab = "Taille des vecteurs (n)",
      ylab = "Temps d'exécution (secondes)")
+
 
 plot(log(resultats$Taille), log(resultats$Temps), type = "b", pch = 19, col = "blue",
      main = "Complexité expérimentale de l'algorithme DTW",
@@ -266,6 +272,7 @@ cat("Pente estimée sur le graphique log-log : ", round(pente, 2), "\n")
 
 # Ajouter la droite de régression sur le graphique log-log
 abline(regression, col = "red", lwd = 2)
+
 ```
 
 
