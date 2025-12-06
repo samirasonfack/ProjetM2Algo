@@ -76,7 +76,7 @@ simulate_dtw <- function(n_values,
         ggplot2::labs(x = "Taille n (log scale)",
                       y = "Temps (s) (log scale)",
                       color = "Algorithme",
-                      title = paste("Comparaison DTW R vs Rcpp (Complexity Exponent should be ~1)")) +
+                      title = paste("Comparaison DTW R vs Rcpp")) +
         ggplot2::theme_minimal()
     }
   }
@@ -94,11 +94,3 @@ simulate_dtw <- function(n_values,
   ))
 }
 
-n_values_test <- round(exp(seq(log(50), log(5000), length.out = 15)))
-res <- simulate_dtw(
-      n_values,
-      algo_r = dtw_sakoe_chiba,
-      algo_rcpp = dtw_sakoe_chiba_rcpp,
-      radius = 2,
-      plot = TRUE
-      )

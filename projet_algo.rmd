@@ -51,7 +51,7 @@ Enfin, nous choisirons le meilleur algorithme pour la classification.
 
 
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
