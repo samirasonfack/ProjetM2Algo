@@ -17,6 +17,17 @@ geometry: margin=2.5cm
 fontsize: 12pt
 ---
 
+```{r setup, include=FALSE}
+# Installer le package depuis GitHub si nécessaire
+if (!requireNamespace("M2algorithmique", quietly = TRUE)) {
+  if (!requireNamespace("remotes", quietly = TRUE))
+    install.packages("remotes")
+  remotes::install_github("vrunge/M2algorithmique")
+}
+
+# Charger le package
+library(M2algorithmique)
+```
 \newpage
 
 # Introduction
@@ -188,91 +199,14 @@ théorique du DTW.
 
 ```{r}
 # R
-taille_vecteurs <- seq(400, 5000, by = 50)
-
-# vecteur vide temps pour garder le temps d’exécution 
-temps <- numeric(length(taille_vecteurs))
-
-for (k in seq_along(taille_vecteurs)) {
-  n <- taille_vecteurs[k]
-  x <- runif(n)  # crée un vecteur aléatoire
-  y <- runif(n)
-
-  temps[k] <- system.time(dtw(x, y))["elapsed"]
-}
-
-resultats <- data.frame(
-  Taille = taille_vecteurs,
-  Temps = temps
-)
-
-
-plot(resultats$Taille, resultats$Temps, type = "b", pch = 19, col = "blue",
-     main = "Complexité expérimentale de l'algorithme DTW",
-     xlab = "Taille des vecteurs (n)",
-     ylab = "Temps d'exécution (secondes)")
-dev.off() 
-
-
-plot(log(resultats$Taille), log(resultats$Temps), type = "b", pch = 19, col = "blue",
-     main = "Complexité expérimentale de l'algorithme DTW",
-     xlab = "log(Taille des vecteurs (n))",
-     ylab = "log(Temps d'exécution (secondes))")
-
-regression <- lm(log(Temps) ~ log(Taille), data = resultats)
-pente <- coef(regression)[2]
-intercept <- coef(regression)[1]
-
-cat("Pente estimée sur le graphique log-log : ", round(pente, 2), "\n")
-
-# Ajouter la droite de régression sur le graphique log-log
-abline(regression, col = "red", lwd = 2)
-
-
+res <- simulation_dtw(debut = 10, fin = 500, pas = 10)
+res
 ```
 
 ```{r}
 # C++
-taille_vecteurs <- seq(400, 5000, by = 50)
-
-# vecteur vide temps pour garder le temps d’exécution 
-temps <- numeric(length(taille_vecteurs))
-
-
-for (k in seq_along(taille_vecteurs)) {
-  n <- taille_vecteurs[k]
-  x <- runif(n)  # crée un vecteur aléatoire
-  y <- runif(n)
-
-  temps[k] <- system.time(dtw_rcpp(x, y))["elapsed"]
-}
-
-resultats <- data.frame(
-  Taille = taille_vecteurs,
-  Temps = temps
-)
-
-
-plot(resultats$Taille, resultats$Temps, type = "b", pch = 19, col = "blue",
-     main = "Complexité expérimentale de l'algorithme DTW",
-     xlab = "Taille des vecteurs (n)",
-     ylab = "Temps d'exécution (secondes)")
-
-
-plot(log(resultats$Taille), log(resultats$Temps), type = "b", pch = 19, col = "blue",
-     main = "Complexité expérimentale de l'algorithme DTW",
-     xlab = "log(Taille des vecteurs (n))",
-     ylab = "log(Temps d'exécution (secondes))")
-
-regression <- lm(log(Temps) ~ log(Taille), data = resultats)
-pente <- coef(regression)[2]
-intercept <- coef(regression)[1]
-
-cat("Pente estimée sur le graphique log-log : ", round(pente, 2), "\n")
-
-# Ajouter la droite de régression sur le graphique log-log
-abline(regression, col = "red", lwd = 2)
-
+res <- simulation_dtw_rcpp(debut = 10, fin = 1000, pas = 10)
+res
 ```
 
 
