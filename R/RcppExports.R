@@ -5,3 +5,7 @@ dtw_rcpp <- function(x, y) {
     .Call(`_ProjetM2Algo_dtw_rcpp`, x, y)
 }
 
+dtw_sakoe_chiba_rcpp <- function(x, y, radius = 1L) {
+    .Call(`_ProjetM2Algo_dtw_sakoe_chiba_rcpp`, x, y, radius)
+}
+

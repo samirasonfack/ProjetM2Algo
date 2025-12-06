@@ -22,9 +22,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// dtw_sakoe_chiba_rcpp
+List dtw_sakoe_chiba_rcpp(NumericVector x, NumericVector y, int radius);
+RcppExport SEXP _ProjetM2Algo_dtw_sakoe_chiba_rcpp(SEXP xSEXP, SEXP ySEXP, SEXP radiusSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< int >::type radius(radiusSEXP);
+    rcpp_result_gen = Rcpp::wrap(dtw_sakoe_chiba_rcpp(x, y, radius));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ProjetM2Algo_dtw_rcpp", (DL_FUNC) &_ProjetM2Algo_dtw_rcpp, 2},
+    {"_ProjetM2Algo_dtw_sakoe_chiba_rcpp", (DL_FUNC) &_ProjetM2Algo_dtw_sakoe_chiba_rcpp, 3},
     {NULL, NULL, 0}
 };
 
