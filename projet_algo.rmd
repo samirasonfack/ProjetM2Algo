@@ -19,14 +19,14 @@ fontsize: 12pt
 
 ```{r setup, include=FALSE}
 # Installer le package depuis GitHub si nécessaire
-if (!requireNamespace("M2algorithmique", quietly = TRUE)) {
+if (!requireNamespace("ProjetM2Algo", quietly = TRUE)) {
   if (!requireNamespace("remotes", quietly = TRUE))
     install.packages("remotes")
-  remotes::install_github("vrunge/M2algorithmique")
+  remotes::install_github("samirasonfack/ProjetM2Algo/")
 }
 
 # Charger le package
-library(M2algorithmique)
+library(ProjetM2Algo)
 ```
 \newpage
 
