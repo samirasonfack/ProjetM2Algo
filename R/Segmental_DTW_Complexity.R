@@ -3,7 +3,7 @@ source('R/Segmental_DTW.R')
 library(ggplot2)
 #' @export
 # Fonction pour mesurer la complexité empirique du Segmental DTW
-segmental_dtw_complexity <- function(N = c(50, 100, 200, 400, 800, 1000, 2000, 3000, 4000),
+segmental_dtw_complexity <- function(N = c(50, 100, 200, 400, 800, 1000, 2000, 3000),
                                      segment_length = 10,
                                      plot_graph = TRUE,
                                      seed = 42) {
