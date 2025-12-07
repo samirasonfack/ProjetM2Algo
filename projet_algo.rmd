@@ -327,7 +327,7 @@ cat("\n* Pente Rcpp (Radius 1) : **", round(res$slope_rcpp, 4), "**")
 cat("\n* Pente Rcpp (Radius 2) : **", round(res2$slope_rcpp, 4), "**")
 
 ```
-On voit conformément aux résultats théorique attendu que la complexité varie peu selon le radius.
+On voit conformément au résultat théorique attendu qu'on a une complexité $O(N)$ avec un pente très proche de 1 pour le code Rcpp et légèrement supérieure à 1 en R. On vérifie également que la **complexité varie peu selon le radius** . Les résultats autour de **1.45** pour le code R mettent en évidence les faiblesses de l'interpréteur R qui introduit un temps de calcul supplémentaire qui augmente avec la valeur de N. Rcpp à contrario est compilé et facilite les calculs lourds tels que les boucles imbriquées.
 
 
 
