@@ -238,6 +238,47 @@ où $w$ est la demi-largeur de la bande, généralement beaucoup plus petite que
 
 En limitant les correspondances possibles, l’algorithme améliore non seulement l’efficacité computationnelle, mais également la robustesse de l’alignement, tout en conservant une bonne précision lorsque les signaux ne présentent pas de fortes distorsions temporelles.
 
+### Calcul théorique de complexité
+
+
+Soit deux séries temporelles de longueur égale $N$.  
+
+Avec **une bande de Chiba de radius $r$** (fenêtre fixe autour de la diagonale), seules les cellules telles que $|i - j| \le r$ sont calculées.  
+
+Chaque ligne de la matrice contient au maximum $2r + 1$ cellules évaluées. La complexité devient donc :
+
+$$
+T_{\text{DTW_bande}}(N, r) = O(N \cdot (2r + 1)) \approx O(N \cdot r)
+$$
+
+où $r$ est généralement beaucoup plus petit que $N$.  
+
+Ainsi, la réduction de la complexité par rapport au DTW classique est significative, surtout pour de grandes séries temporelles.
+
+---
+
+### Représentation log-log
+
+Pour visualiser la complexité, on peut utiliser une **échelle log-log** :
+
+$$
+x = \log(N), \quad y = \log(T(N))
+$$
+
+- Pour le **DTW avec bande fixe** :  
+
+$$
+y = \log(N \cdot r) = \log(r) + \log(N) \approx \log(N) \quad \text{si $r$ constant}
+$$
+
+En pratique :  
+
+Sur un graphique log-log, la **pente de la droite** correspond à l’exposant de $N$. Donc une pente ≈ 1 
+ 
+   
+
+
+
 ###Simulation de la complexité temporelle
 
 ```{r}
@@ -250,6 +291,11 @@ res <- simulate_dtw_sakoe_chiba(
       plot = TRUE
       )
 ```
+
+```{r}
+res
+```
+
 
 
 
