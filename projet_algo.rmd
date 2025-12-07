@@ -203,14 +203,14 @@ théorique du DTW.
 ```{r}
 # R
 res <- simulation_dtw(debut = 10, fin = 500, pas = 10)
-res
+res$pente
 
 ```
 
 ```{r}
 # C++
 res <- simulation_dtw_rcpp(debut = 10, fin = 1000, pas = 10)
-res
+res$pente
 ```
 
 
@@ -237,6 +237,126 @@ $$
 où $w$ est la demi-largeur de la bande, généralement beaucoup plus petite que $N$.
 
 En limitant les correspondances possibles, l’algorithme améliore non seulement l’efficacité computationnelle, mais également la robustesse de l’alignement, tout en conservant une bonne précision lorsque les signaux ne présentent pas de fortes distorsions temporelles.
+
+```{r}
+# Dans votre Rmd ou dans une fonction R :
+# Trouver le chemin du fichier installé
+path1 <- system.file("extdata", "commodity.csv", package = "ProjetM2Algo")
+path2 <- system.file("extdata", "stock.csv", package = "ProjetM2Algo")
+
+# Charger les données de manière fiable
+df_stock <- read.csv(path1, header = TRUE)
+df_commodity <- read.csv(path2, header = TRUE)
+
+# Converrtir les dates en type Date sous R
+df_stock$Date <- as.Date(df_stock$Date)
+df_commodity$Date <- as.Date(df_commodity$Date)
+
+X <- df_stock$Close
+Y <- df_commodity$Close
+```
+
+```{r}
+X
+```
+
+
+```{r}
+result <- dtw_sakoe_chiba_rcpp(X,Y,radius=1)
+result$matrix
+
+```
+
+```{r}
+
+# Récupérer le chemin d'alignement.
+# result$path est une liste de vecteurs (i, j).
+alignment_list <- result$path 
+
+# Convertir la liste de vecteurs en une matrice N x 2
+# Si result$path est vide (séries non alignables), on arrête.
+if (length(alignment_list) == 0) {
+    stop("Le chemin DTW est vide. Les séries sont trop contraintes ou inalignables.")
+}
+
+alignment_matrix <- do.call(rbind, alignment_list)
+
+# CORRECTION CRITIQUE: 
+# Le chemin C++ est 0-basé, mais nous l'avons converti en 1-basé pour R dans le C++.
+# VÉRIFIEZ votre fonction C++: si elle retourne {i+1, j+1}, ALORS PAS BESOIN de +1 ici.
+# Si vous êtes sûr que la sortie C++ est {i, j} (0-basé), utilisez :
+# alignment_matrix <- alignment_matrix + 1
+# Si la sortie C++ est {i+1, j+1}, nous ne faisons RIEN ici.
+# PENDANT LA RÉVISION, nous ASSUMONS que C++ retourne des indices 1-basés.
+
+aligned_X_indices <- alignment_matrix[, 1]
+aligned_Y_indices <- alignment_matrix[, 2]
+
+# Assurer que les indices ne dépassent pas la longueur des séries originales
+aligned_X <- X[aligned_X_indices]
+aligned_Y <- Y[aligned_Y_indices]
+
+# Le temps d'alignement est simplement la longueur du chemin
+time_index <- 1:length(aligned_X)
+
+df_aligned <- data.frame(
+  Time = time_index,
+  Stock = aligned_X,
+  Commodity = aligned_Y
+)
+
+# =======================================================
+# 2. Plot AVANT Alignement (p1)
+# =======================================================
+
+len_max <- max(length(X), length(Y))
+len_X <- length(X)
+len_Y <- length(Y)
+
+df_before <- data.frame(
+  Time = 1:len_max,
+  # Pour éviter les problèmes de NA si les séries n'ont pas la même longueur initiale
+  Stock = c(X, rep(NA, len_max - len_X)),
+  Commodity = c(Y, rep(NA, len_max - len_Y))
+)
+
+p1 <- ggplot(df_before, aes(x = Time)) +
+  # Nous devons forcer ggplot à n'afficher que la partie non-NA des données
+  geom_line(aes(y = Stock, color = "Stock")) +
+  geom_line(aes(y = Commodity, color = "Commodity")) +
+  labs(
+    title = "Avant Alignement DTW",
+    y = "Rendements Log",
+    color = "Série"
+  ) +
+  theme_minimal() +
+  scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
+
+
+# =======================================================
+# 3. Plot APRÈS Alignement (p2)
+# =======================================================
+
+p2 <- ggplot(df_aligned, aes(x = Time)) +
+  geom_line(aes(y = Stock, color = "Stock")) +
+  geom_line(aes(y = Commodity, color = "Commodity")) +
+  labs(
+    title = paste("Après Alignement DTW (Distance:", round(result$DTW_distance, 4), ")"),
+    x = paste("Points Alignés (Longueur Chemin: ", length(time_index), ")"),
+    y = "Rendements Log",
+    color = "Série"
+  ) +
+  theme_minimal() +
+  scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
+
+# =======================================================
+# 4. Affichage Côté à Côté
+# =======================================================
+
+gridExtra::grid.arrange(p1, p2, ncol = 2)
+```
+
+
 
 ### Calcul théorique de complexité
 
@@ -283,7 +403,7 @@ Sur un graphique log-log, la **pente de la droite** correspond à l’exposant d
 
 ```{r}
 n_values <- round(exp(seq(log(50), log(5000), length.out = 15)))
-res <- simulate_dtw_sakoe_chiba(
+res1 <- simulate_dtw_sakoe_chiba(
       n_values,
       algo_r = dtw_sakoe_chiba,
       algo_rcpp = dtw_sakoe_chiba_rcpp,
@@ -308,7 +428,7 @@ res2 <- simulate_dtw_sakoe_chiba(
 library(gridExtra)
 
 gridExtra::grid.arrange(
-    res$plot, 
+    res1$plot, 
     res2$plot, 
     ncol = 2,
     top = "Comparaison de la Complexité R vs Rcpp sous différentes contraintes"
@@ -318,11 +438,11 @@ gridExtra::grid.arrange(
 
 # Affichage des pentes 
 cat(" Pentes de Complexité par Implémentation :\n")
-cat("\n* Pente R (Radius 1) : **", round(res$slope_r, 4), "**")
+cat("\n* Pente R (Radius 1) : **", round(res1$slope_r, 4), "**")
 
 cat("\n* Pente R (Radius 2) : **", round(res2$slope_r, 4), "**")
 
-cat("\n* Pente Rcpp (Radius 1) : **", round(res$slope_rcpp, 4), "**")
+cat("\n* Pente Rcpp (Radius 1) : **", round(res1$slope_rcpp, 4), "**")
 
 cat("\n* Pente Rcpp (Radius 2) : **", round(res2$slope_rcpp, 4), "**")
 
