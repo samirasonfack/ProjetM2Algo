@@ -215,8 +215,8 @@ res$pente
 
 
 ## Algorithme du DTW avec bande de Sakoe Chiba fixe - Sakoe Chiba Band
-<<<<<<< HEAD
-=======
+
+
 
 
 L’algorithme de **Sakoe–Chiba** introduit une contrainte locale appelée **bande de Chiba** afin de limiter les déformations autorisées lors du calcul du *Dynamic Time Warping* (DTW). Dans la formulation classique de la DTW, la matrice de coût est entièrement parcourue, ce qui conduit à une complexité temporelle en $O(N^2)$ pour deux signaux de longueur $N$.
@@ -410,8 +410,13 @@ On voit conformément au résultat théorique attendu qu'on a une complexité $O
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b1192dc85405ea831bbfe7076b0e89f41ca173a9
 ## Segmental DTW 
+
+
 Le segmental DTW (SDTW) est une variante du DTW classique utilisée pour comparer deux séries temporelles par segments plutôt que globalement.
 
 Il repose sur 3 idées principales :
@@ -438,6 +443,8 @@ Ensuite, pour chaque segment, le code calcule le DTW entre serie1 complète et l
 dtw_segments <- compute_segment_dtw(serie1, serie2, segments)
 dtw_segments[1]
 ```
+
+
 Chaque élément de dtw_segments contient la matrice des coûts cumulés frame-level, le chemin optimal et la matrice de traces pour reconstruire le chemin. 
 Cette étape correspond à l'alignement local segment par segment, au lieu d'un DTW global sur toute la série 2. 
 
@@ -453,6 +460,7 @@ seg_cost_list devient la base pour calculer le cumulative cost global segment-le
 
 #### Cumulative cost des segments
 Le code cumule les coûts des segments pour obtenir la distance globale :
+
 ```{r}
 n_seg <- length(segments)
 n_len <- length(serie1)
@@ -476,6 +484,7 @@ On effectue une recherche du minimum cumulatif sur les positions restantes pour 
 
 #### Backtrace segment-level
 Une fois la matrice cumulative calculée, on retrace le chemin optimal segment par segment. Cette étape permet de retrouver la séquence optimale de segments qui minimise la distance globale.
+
 ```{r}
 path_seg <- list()
 i <- n_seg
@@ -525,8 +534,16 @@ Ce qui correspond à la complexité théorique du DTW global, mais avec plusieur
 
 #### Test de la complexité :
 ```{r}
+library(ggplot2)
 res_complexity <- segmental_dtw_complexity()
 print(paste("Exposant empirique estimé :", round(res_complexity$slope, 2)))
 ```
 
-"Exposant empirique estimé : 1.76" Cette valeur de pente confirme que la méthode est très efficace pour de longues séries segmentées, tout en restant fidèle à sa complexité théorique.
+Cette valeur de pente confirme que la méthode est très efficace pour de longues séries segmentées, tout en restant fidèle à sa complexité théorique.
+
+
+# Conclusion 
+L'exploration en profondeur de plusieurs varaintes du **Dynamic Time Wraping** nous a permis de vérifier la théorie et voir à quel point le Rcpp peut l'améliorer largement.
+Nous avons confirmé expérimentalement la complexité quadratique du DTW classique, ainsi qu el'apport majeur des contraintes locales telles que **la bande de Sakoe-Chibe**, qui réduisent la complexité à un ordre linéaire tout en préservant la qualité de l'alignement. 
+Enfin, le **Segmental DTW** offre un compromis intéressant: il conserve la complexité théorique globale tout en améliorant lagestion de mémoire, la précision locale et le potentiel de prallélisation. 
+
