@@ -512,15 +512,15 @@ print(result$final_path)
 #### Evaluation de la compléxité de Segmental DTW
 Soient deux séries de longueurs n et m, et un segment de longueur L. 
 Si la série cible est partitionnée en 
-\[
+$$
 S = \lceil m / L \rceil
-\]
+$$
 segments, la complexité totale du **Segmental DTW** s’écrit :
 
-\[
+$$
 O(S \cdot n \cdot L) = O(n \cdot m)
-\]
 
+$$
 Ce qui correspond à la complexité théorique du DTW global, mais avec plusieurs avantages pratiques :
 - **Mémoire optimisée :** seules des matrices de taille n×L sont allouées à chaque étape, limitant l’usage de la mémoire vive.
 
