@@ -215,6 +215,128 @@ res
 
 
 ## Algorithme du DTW avec bande de Sakoe Chiba fixe - Sakoe Chiba Band
+<<<<<<< HEAD
+=======
+
+
+L’algorithme de **Sakoe–Chiba** introduit une contrainte locale appelée **bande de Chiba** afin de limiter les déformations autorisées lors du calcul du *Dynamic Time Warping* (DTW). Dans la formulation classique de la DTW, la matrice de coût est entièrement parcourue, ce qui conduit à une complexité temporelle en $O(N^2)$ pour deux signaux de longueur $N$.
+
+Or lorsqu'on applique l'algorithme sur la même série on voit que le chemin optimal correspond à la diagonale et s'en éloigne d'autant plus que les séries diffèrent. La bande de Chiba impose que l’alignement optimal reste à l’intérieur d’une fenêtre de largeur prédéfinie autour de la diagonale principale.Une variante propose une fenêtre mobile sous forme de matrice dde "région":
+- pour un point $(i,j)$, seules les cellules telles que  
+  \[
+  |i - j| \leq \text{radius}
+  \]  
+  sont considérées ; 
+  
+  On considèrera ici à **une taille de bande fixe**  **radius** dans toutes les directions. Ainsi, seuls les coûts des cellules situées dans cette zone restreinte sont évalués.
+
+Grâce à cette contrainte, le nombre d’opérations nécessaires est considérablement réduit, faisant passer la complexité temporelle à :
+
+$$
+O(N \cdot w)
+$$
+
+où $w$ est la demi-largeur de la bande, généralement beaucoup plus petite que $N$.
+
+En limitant les correspondances possibles, l’algorithme améliore non seulement l’efficacité computationnelle, mais également la robustesse de l’alignement, tout en conservant une bonne précision lorsque les signaux ne présentent pas de fortes distorsions temporelles.
+
+### Calcul théorique de complexité
+
+
+Soit deux séries temporelles de longueur égale $N$.  
+
+Avec **une bande de Chiba de radius $r$** (fenêtre fixe autour de la diagonale), seules les cellules telles que $|i - j| \le r$ sont calculées.  
+
+Chaque ligne de la matrice contient au maximum $2r + 1$ cellules évaluées. La complexité devient donc :
+
+$$
+T_{\text{DTW_bande}}(N, r) = O(N \cdot (2r + 1)) \approx O(N \cdot r)
+$$
+
+où $r$ est généralement beaucoup plus petit que $N$.  
+
+Ainsi, la réduction de la complexité par rapport au DTW classique est significative, surtout pour de grandes séries temporelles.
+
+---
+
+### Représentation log-log
+
+Pour visualiser la complexité, on peut utiliser une **échelle log-log** :
+
+$$
+x = \log(N), \quad y = \log(T(N))
+$$
+
+- Pour le **DTW avec bande fixe** :  
+
+$$
+y = \log(N \cdot r) = \log(r) + \log(N) \approx \log(N) \quad \text{si $r$ constant}
+$$
+
+En pratique :  
+
+Sur un graphique log-log, la **pente de la droite** correspond à l’exposant de $N$. Donc une pente ≈ 1 
+ 
+   
+
+
+
+###Simulation de la complexité temporelle
+
+```{r}
+n_values <- round(exp(seq(log(50), log(5000), length.out = 15)))
+res <- simulate_dtw_sakoe_chiba(
+      n_values,
+      algo_r = dtw_sakoe_chiba,
+      algo_rcpp = dtw_sakoe_chiba_rcpp,
+      radius = 2,
+      plot = TRUE
+      )
+```
+
+```{r}
+# Simulation 2 (Radius = 5)
+res2 <- simulate_dtw_sakoe_chiba(
+    n_values,
+    algo_r = dtw_sakoe_chiba,
+    algo_rcpp = dtw_sakoe_chiba_rcpp,
+    radius = 5, # Changer le rayon
+    plot = TRUE
+)
+```
+
+
+```{r}
+library(gridExtra)
+
+gridExtra::grid.arrange(
+    res$plot, 
+    res2$plot, 
+    ncol = 2,
+    top = "Comparaison de la Complexité R vs Rcpp sous différentes contraintes"
+)
+```
+```{r}
+
+# Affichage des pentes 
+cat(" Pentes de Complexité par Implémentation :\n")
+cat("\n* Pente R (Radius 1) : **", round(res$slope_r, 4), "**")
+
+cat("\n* Pente R (Radius 2) : **", round(res2$slope_r, 4), "**")
+
+cat("\n* Pente Rcpp (Radius 1) : **", round(res$slope_rcpp, 4), "**")
+
+cat("\n* Pente Rcpp (Radius 2) : **", round(res2$slope_rcpp, 4), "**")
+
+```
+On voit conformément au résultat théorique attendu qu'on a une complexité $O(N)$ avec un pente très proche de 1 pour le code Rcpp et légèrement supérieure à 1 en R. On vérifie également que la **complexité varie peu selon le radius** . Les résultats autour de **1.45** pour le code R mettent en évidence les faiblesses de l'interpréteur R qui introduit un temps de calcul supplémentaire qui augmente avec la valeur de N. Rcpp à contrario est compilé et facilite les calculs lourds tels que les boucles imbriquées.
+
+
+
+
+
+
+>>>>>>> 781c4db1ecfd47a5c4271796d3a3dabbd63e0b89
 
 
 L’algorithme de **Sakoe–Chiba** introduit une contrainte locale appelée **bande de Chiba** afin de limiter les déformations autorisées lors du calcul du *Dynamic Time Warping* (DTW). Dans la formulation classique de la DTW, la matrice de coût est entièrement parcourue, ce qui conduit à une complexité temporelle en $O(N^2)$ pour deux signaux de longueur $N$.
