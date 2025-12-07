@@ -14,11 +14,11 @@ for(i in seq_along(N)){
   n <- N[i]
   serie1 <- runif(n, 0, 100)
   serie2 <- runif(n, 0, 100)
-  
+
   start_time <- Sys.time()
   result <- segmental_dtw_two_series(serie1, serie2, segment_length)
   end_time <- Sys.time()
-  
+
   elapsed <- as.numeric(difftime(end_time, start_time, units="secs"))
   time_results[i] <- elapsed
   cat("n =", n, "-> Temps =", elapsed, "sec\n")
@@ -43,14 +43,15 @@ gg <- ggplot(df, aes(x = log_n, y = log_T)) +
   geom_point(color = "blue", size = 3) +
   geom_line(color = "blue") +
   geom_smooth(method = "lm", se = FALSE, color = "red", linetype="dashed") +
-  labs(title = "Complexité empirique Segmental DTW",
+  labs(title = "Empeircal Complexity for Segmental DTW",
        x = "log(n)",
        y = "log(T)") +
   theme_minimal()
 
 gg
+
 # Estimate complexity slope
 fit <- lm(log_T ~ log_n)
 abline(fit, col="red", lwd=2)
 slope <- coef(fit)[2]
-cat("Pente estimée =", slope, "\n")
+print(paste("Slope (exponent) =", slope))
