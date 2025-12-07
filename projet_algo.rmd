@@ -1,6 +1,6 @@
 ---
 title: "Projet d’Algorithmique : Classification des séries temporelles à l'aide Dynamic Time Wraping"
-author: "Sarah Eliko, Fatimah-Zara Aklila , Samira Sonfack"
+author: "Sarah Eliko, Fatima-Zahra Aklila , Samira Sonfack"
 date: "`r format(Sys.Date(), '%d %B %Y')`"
 output:
   html_document:
