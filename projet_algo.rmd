@@ -293,8 +293,41 @@ res <- simulate_dtw_sakoe_chiba(
 ```
 
 ```{r}
-res
+# Simulation 2 (Radius = 5)
+res2 <- simulate_dtw_sakoe_chiba(
+    n_values,
+    algo_r = dtw_sakoe_chiba,
+    algo_rcpp = dtw_sakoe_chiba_rcpp,
+    radius = 5, # Changer le rayon
+    plot = TRUE
+)
 ```
+
+
+```{r}
+library(gridExtra)
+
+gridExtra::grid.arrange(
+    res$plot, 
+    res2$plot, 
+    ncol = 2,
+    top = "Comparaison de la Complexité R vs Rcpp sous différentes contraintes"
+)
+```
+```{r}
+
+# Affichage des pentes 
+cat(" Pentes de Complexité par Implémentation :\n")
+cat("\n* Pente R (Radius 1) : **", round(res$slope_r, 4), "**")
+
+cat("\n* Pente R (Radius 2) : **", round(res2$slope_r, 4), "**")
+
+cat("\n* Pente Rcpp (Radius 1) : **", round(res$slope_rcpp, 4), "**")
+
+cat("\n* Pente Rcpp (Radius 2) : **", round(res2$slope_rcpp, 4), "**")
+
+```
+On voit conformément aux résultats théorique attendu que la complexité varie peu selon le radius.
 
 
 
