@@ -10,31 +10,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// dtw_cpp
-List dtw_cpp(NumericVector x, NumericVector y);
-RcppExport SEXP _ProjetM2Algo_dtw_cpp(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(dtw_cpp(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
-// segmental_dtw_cpp
-List segmental_dtw_cpp(NumericVector serie1, NumericVector serie2, int segment_length);
-RcppExport SEXP _ProjetM2Algo_segmental_dtw_cpp(SEXP serie1SEXP, SEXP serie2SEXP, SEXP segment_lengthSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type serie1(serie1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type serie2(serie2SEXP);
-    Rcpp::traits::input_parameter< int >::type segment_length(segment_lengthSEXP);
-    rcpp_result_gen = Rcpp::wrap(segmental_dtw_cpp(serie1, serie2, segment_length));
-    return rcpp_result_gen;
-END_RCPP
-}
 // dtw_rcpp
 List dtw_rcpp(NumericVector x, NumericVector y);
 RcppExport SEXP _ProjetM2Algo_dtw_rcpp(SEXP xSEXP, SEXP ySEXP) {
@@ -62,8 +37,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_ProjetM2Algo_dtw_cpp", (DL_FUNC) &_ProjetM2Algo_dtw_cpp, 2},
-    {"_ProjetM2Algo_segmental_dtw_cpp", (DL_FUNC) &_ProjetM2Algo_segmental_dtw_cpp, 3},
     {"_ProjetM2Algo_dtw_rcpp", (DL_FUNC) &_ProjetM2Algo_dtw_rcpp, 2},
     {"_ProjetM2Algo_dtw_sakoe_chiba_rcpp", (DL_FUNC) &_ProjetM2Algo_dtw_sakoe_chiba_rcpp, 3},
     {NULL, NULL, 0}
