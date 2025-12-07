@@ -197,10 +197,14 @@ Ainsi, si le graphique \(\log(n)\) -- \(\log(T)\) présente une pente
 proche de \(2\), cela confirme expérimentalement la complexité quadratique
 théorique du DTW.
 
+
+### Simulation de la complexité
+
 ```{r}
 # R
 res <- simulation_dtw(debut = 10, fin = 500, pas = 10)
 res
+
 ```
 
 ```{r}
@@ -208,6 +212,35 @@ res
 res <- simulation_dtw_rcpp(debut = 10, fin = 1000, pas = 10)
 res
 ```
+
+
+## Algorithme du DTW avec bande de Sakoe Chiba fixe - Sakoe Chiba Band
+
+
+L’algorithme de **Sakoe–Chiba** introduit une contrainte locale appelée **bande de Chiba** afin de limiter les déformations autorisées lors du calcul du *Dynamic Time Warping* (DTW). Dans la formulation classique de la DTW, la matrice de coût est entièrement parcourue, ce qui conduit à une complexité temporelle en $O(N^2)$ pour deux signaux de longueur $N$.
+
+Or lorsqu'on applique l'algorithme sur la même série on voit que le chemin optimal correspond à la diagonale et s'en éloigne d'autant plus que les séries diffèrent. La bande de Chiba impose que l’alignement optimal reste à l’intérieur d’une fenêtre de largeur prédéfinie autour de la diagonale principale.Une variante propose une fenêtre mobile sous forme de matrice dde "région":
+- pour un point $(i,j)$, seules les cellules telles que  
+  \[
+  |i - j| \leq \text{radius}
+  \]  
+  sont considérées ; 
+  
+  On considèrera ici à **une taille de bande fixe**  **radius** dans toutes les directions. Ainsi, seuls les coûts des cellules situées dans cette zone restreinte sont évalués.
+
+Grâce à cette contrainte, le nombre d’opérations nécessaires est considérablement réduit, faisant passer la complexité temporelle à :
+
+$$
+O(N \cdot w)
+$$
+
+où $w$ est la demi-largeur de la bande, généralement beaucoup plus petite que $N$.
+
+En limitant les correspondances possibles, l’algorithme améliore non seulement l’efficacité computationnelle, mais également la robustesse de l’alignement, tout en conservant une bonne précision lorsque les signaux ne présentent pas de fortes distorsions temporelles.
+
+```
+
+
 
 
 
