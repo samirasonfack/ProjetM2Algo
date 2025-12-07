@@ -341,12 +341,6 @@ gridExtra::grid.arrange(plot_before, plot_after1, plot_after2, ncol = 3)
 
 ```
 
-```{r}
-length(aligned_X)
-length(aligned_Y)
-
-```
-
 
 ### Calcul théorique de complexité
 
@@ -424,6 +418,7 @@ gridExtra::grid.arrange(
     top = "Comparaison de la Complexité R vs Rcpp sous différentes contraintes"
 )
 ```
+
 ```{r}
 
 # Affichage des pentes 
