@@ -46,3 +46,4 @@ RcppExport void R_init_ProjetM2Algo(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }
+
