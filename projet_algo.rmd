@@ -263,39 +263,25 @@ df_com$Date <- as.Date(df_com$Date)
 
 X <- df_stock$Close
 Y <- df_com$Close
-radius1 <- 100
-radius2 <- 500
 
-dtw_result1 <- dtw_sakoe_chiba_rcpp(X, Y, radius = radius1)
-dtw_result2 <- dtw_sakoe_chiba_rcpp(X, Y, radius = radius2)
+radius <- 100
+dtw_result <- dtw_sakoe_chiba_rcpp(X, Y, radius = radius)
 
-#Indices pour radius1
-path1 <- dtw_result1$path
-idx_x1 <- sapply(path1, `[[`, 1)
-idx_y1 <- sapply(path1, `[[`, 2)
 
-aligned_X1 <- X[idx_x1]
-aligned_Y1 <- Y[idx_y1]
+#Indices pour radius
+path <- dtw_result$path
+idx_x <- sapply(path, `[[`, 1)
+idx_y <- sapply(path, `[[`, 2)
 
-df_aligned1 <- data.frame(
-  Index = seq_along(aligned_X1),
-  Stock = aligned_X1,
-  Commodity = aligned_Y1 
+aligned_X <- X[idx_x]
+aligned_Y <- Y[idx_y]
+
+df_aligned <- data.frame(
+  Index = seq_along(aligned_X),
+  Stock = aligned_X,
+  Commodity = aligned_Y
 )
 
-# indices pour radius2
-path2 <- dtw_result2$path
-idx_x2 <- sapply(path2, `[[`, 1)
-idx_y2 <- sapply(path2, `[[`, 2)
-
-aligned_X2 <- X[idx_x2]
-aligned_Y2 <- Y[idx_y2]
-
-df_aligned2 <- data.frame(
-  Index = seq_along(aligned_X2),
-  Stock = aligned_X2,
-  Commodity = aligned_Y2 
-)
 
 df_before <- full_join(
   df_stock %>% rename(Stock = Close),
@@ -313,31 +299,18 @@ plot_before <- ggplot(df_before, aes(x = Date)) +
   scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
 
 #radius1
-plot_after1 <- ggplot(df_aligned1, aes(x = Index)) +
+plot_after <- ggplot(df_aligned, aes(x = Index)) +
   geom_line(aes(y = Stock, color = "Stock")) +
   geom_line(aes(y = Commodity, color = "Commodity")) +
-  labs(title = paste("2. Après DTW : Séries Alignées (radius =", radius1, ")"),
-       x = paste("Indice Alignement (L:", length(aligned_X1), ")"),
+  labs(title = paste("2. Après DTW : Séries Alignées (radius =", radius, ")"),
+       x = paste("Indice Alignement (L:", length(aligned_X), ")"),
        y = "Prix de Clôture (Aligné)",
        color = "Série") +
   theme_minimal() +
   scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
 
-#radius2
-plot_after2 <- ggplot(df_aligned2, aes(x = Index)) +
-  geom_line(aes(y = Stock, color = "Stock")) +
-  geom_line(aes(y = Commodity, color = "Commodity")) +
-  labs(title = paste("3. Après DTW : Séries Alignées (radius =", radius2, ")"),
-       x = paste("Indice Alignement (L:", length(aligned_X2), ")"),
-       y = "Prix de Clôture (Aligné)",
-       color = "Série") +
-  theme_minimal() +
-  scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
-
-# =======================================================
-# 6. Display plots side by side
-# =======================================================
-gridExtra::grid.arrange(plot_before, plot_after1, plot_after2, ncol = 3)
+#affichage
+gridExtra::grid.arrange(plot_before, plot_after, ncol = 2)
 
 ```
 
@@ -435,11 +408,6 @@ cat("\n* Pente Rcpp (Radius 2) : **", round(res2$slope_rcpp, 4), "**")
 On voit conformément au résultat théorique attendu qu'on a une complexité $O(N)$ avec un pente très proche de 1 pour le code Rcpp et légèrement supérieure à 1 en R. On vérifie également que la **complexité varie peu selon le radius** . Les résultats autour de **1.45** pour le code R mettent en évidence les faiblesses de l'interpréteur R qui introduit un temps de calcul supplémentaire qui augmente avec la valeur de N. Rcpp à contrario est compilé et facilite les calculs lourds tels que les boucles imbriquées.
 
 
-
-
-
-
->>>>>>> 781c4db1ecfd47a5c4271796d3a3dabbd63e0b89
 
 
 
@@ -545,8 +513,9 @@ segments, la complexité totale du **Segmental DTW** s’écrit :
 
 $$
 O(S \cdot n \cdot L) = O(n \cdot m)
-
 $$
+
+
 Ce qui correspond à la complexité théorique du DTW global, mais avec plusieurs avantages pratiques :
 - **Mémoire optimisée :** seules des matrices de taille n×L sont allouées à chaque étape, limitant l’usage de la mémoire vive.
 
