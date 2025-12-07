@@ -14,6 +14,7 @@ library(Rcpp)
 # Import the dtw function from dtw.R
 source("R/dtw.R")
 
+#' @export
 # ________Segmentation of the time series 1 into n=(segment_length) segments
 #' Input : serie, segment length
 #' Output : list of segments (start, end) positions
@@ -29,7 +30,7 @@ segment_series <- function(series, segment_length){
   return(segments)
 }
 
-
+#' @export
 # _______Calculate the DTW between (each segment of serie 2) and (serie 1) using dtw function
 #' Input : serie1, serie2, list of segments (start, end) positions
 #' Output : list of dtw results for each segment
@@ -41,7 +42,7 @@ compute_segment_dtw <- function(serie1, serie2, segments){
   return(dtw_list)
 }
 
-
+#' @export
 # _____ Segment-level cost list
 # input : list of dtw results for each segment
 # output : list of segment-level cost vectors
@@ -59,7 +60,7 @@ compute_segment_level_cost <- function(dtw_segments){
   return(segment_cost_list)
 }
 
-
+#' @export
 # Segmental DTW for the two series aand the frame-level path reconstruction
 # input : serie1, serie2, segment length
 # output : list with segments, dtw_segments, cum_cost, segment_path, final_path, dtw_distance
