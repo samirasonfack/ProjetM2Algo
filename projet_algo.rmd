@@ -1,6 +1,6 @@
 ---
-title: "Projet d’Algorithmique"
-author: "Ton Nom"
+title: "Projet d’Algorithmique : Classification des séries temporelles à l'aide Dynamic Time Wraping"
+author: "Noms"
 date: "`r format(Sys.Date(), '%d %B %Y')`"
 output:
   html_document:

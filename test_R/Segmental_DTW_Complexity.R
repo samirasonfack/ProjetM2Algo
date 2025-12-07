@@ -38,7 +38,7 @@ df <- data.frame(
   log_T = log(time_results)
 )
 
-# Tracer la courbe log-log
+# log-log graph
 gg <- ggplot(df, aes(x = log_n, y = log_T)) +
   geom_point(color = "blue", size = 3) +
   geom_line(color = "blue") +
