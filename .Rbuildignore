@@ -1,4 +1,10 @@
-^.*\.Rproj$
+^\.vscode$          # dossier de configuration VSCode
+^\.git$             # dossier Git
+^\.gitignore$       # fichier gitignore
+^\.Rproj$           # fichier RStudio project
+^\.Rhistory$        # historique R
+^\.RData$           # données sauvegardées
+^.*\.Rproj.user$    # dossier temporaire RStudio
+^\.DS_Store$        # fichiers système macOS
+^__pycache__$       # cache Python si présent
 ^\.Rproj\.user$
-^_quarto\.yml$
-^README\.md$

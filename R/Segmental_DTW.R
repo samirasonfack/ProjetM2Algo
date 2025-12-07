@@ -16,7 +16,7 @@ source("R/dtw.R")
 
 #' @export
 # ________Segmentation of the time series 1 into n=(segment_length) segments
-#' Input : serie, segment length
+#' Input : series, segment length
 #' Output : list of segments (start, end) positions
 segment_series <- function(series, segment_length){
   n <- length(series)

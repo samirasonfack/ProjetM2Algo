@@ -12,7 +12,7 @@
 #' @return A list containing the raw data, linear model fits, and complexity slopes.
 #' @import microbenchmark ggplot2
 #' @export
-simulate_dtw <- function(n_values,
+simulate_dtw_sakoe_chiba <- function(n_values,
                          algo_r,
                          algo_rcpp,
                          radius = 10, # Increased radius for better signal-to-noise ratio

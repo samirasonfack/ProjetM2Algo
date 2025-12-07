@@ -1,5 +1,7 @@
+
 library(Rcpp)
 source('R/Segmental_DTW.R')
+
 N <- c(50, 100, 200, 400, 800,1000,2000,3000,4000)
 segment_length <- 10
 
