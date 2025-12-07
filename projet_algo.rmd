@@ -245,7 +245,9 @@ En limitant les correspondances possibles, l’algorithme améliore non seulemen
 
 **Problématique** : Les séries sont à des fréquences différentes. Déterminer l'appartenance d'une entreprise à un secteur , évaluer analytiquement la corrélation entre les cours de bourse
 ```{r}
-
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
 
 ###  Charge les données depuis le package
 path_stock <- system.file("extdata", "stock.csv", package = "ProjetM2Algo")
