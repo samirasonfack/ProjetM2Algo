@@ -26,7 +26,7 @@ if (!requireNamespace("ProjetM2Algo", quietly = TRUE)) {
 }
 
 # Charger le package
-library(ProjetM2Algo.Rproj)
+library(ProjetM2Algo)
 ```
 \newpage
 
@@ -168,7 +168,7 @@ Le DTW a « déformé » le temps pour trouver un alignement optimal entre les p
 
 
 ```{r}
-library(ProjetM2Algo.Rproj)
+library(ProjetM2Algo)
 x <- c(1, 3, 4, 9)
 y <- c(1, 3, 7, 8, 9)
 dtw_result <- dtw(x, y)
