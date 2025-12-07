@@ -241,6 +241,110 @@ où $w$ est la demi-largeur de la bande, généralement beaucoup plus petite que
 En limitant les correspondances possibles, l’algorithme améliore non seulement l’efficacité computationnelle, mais également la robustesse de l’alignement, tout en conservant une bonne précision lorsque les signaux ne présentent pas de fortes distorsions temporelles.
 
 
+#### Application : comparaison de cours de bourse des stocks d'une entreprise et d'un stock de matière première (pétrole) 
+
+**Problématique** : Les séries sont à des fréquences différentes. Déterminer l'appartenance d'une entreprise à un secteur , évaluer analytiquement la corrélation entre les cours de bourse
+```{r}
+
+
+###  Charge les données depuis le package
+path_stock <- system.file("extdata", "stock.csv", package = "ProjetM2Algo")
+path_com <- system.file("extdata", "commodity.csv", package = "ProjetM2Algo")
+
+df_stock <- read.csv(path_stock)
+df_com <- read.csv(path_com)
+
+df_stock$Date <- as.Date(df_stock$Date)
+df_com$Date <- as.Date(df_com$Date)
+
+
+
+X <- df_stock$Close
+Y <- df_com$Close
+radius1 <- 100
+radius2 <- 500
+
+dtw_result1 <- dtw_sakoe_chiba_rcpp(X, Y, radius = radius1)
+dtw_result2 <- dtw_sakoe_chiba_rcpp(X, Y, radius = radius2)
+
+#Indices pour radius1
+path1 <- dtw_result1$path
+idx_x1 <- sapply(path1, `[[`, 1)
+idx_y1 <- sapply(path1, `[[`, 2)
+
+aligned_X1 <- X[idx_x1]
+aligned_Y1 <- Y[idx_y1]
+
+df_aligned1 <- data.frame(
+  Index = seq_along(aligned_X1),
+  Stock = aligned_X1,
+  Commodity = aligned_Y1 
+)
+
+# indices pour radius2
+path2 <- dtw_result2$path
+idx_x2 <- sapply(path2, `[[`, 1)
+idx_y2 <- sapply(path2, `[[`, 2)
+
+aligned_X2 <- X[idx_x2]
+aligned_Y2 <- Y[idx_y2]
+
+df_aligned2 <- data.frame(
+  Index = seq_along(aligned_X2),
+  Stock = aligned_X2,
+  Commodity = aligned_Y2 
+)
+
+df_before <- full_join(
+  df_stock %>% rename(Stock = Close),
+  df_com %>% rename(Commodity = Close),
+  by = "Date"
+)
+
+plot_before <- ggplot(df_before, aes(x = Date)) +
+  geom_line(aes(y = Stock, color = "Stock")) +
+  geom_line(aes(y = Commodity, color = "Commodity")) +
+  labs(title = "1. Avant DTW : Séries Brutes",
+       y = "Prix de Clôture",
+       color = "Série") +
+  theme_minimal() +
+  scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
+
+#radius1
+plot_after1 <- ggplot(df_aligned1, aes(x = Index)) +
+  geom_line(aes(y = Stock, color = "Stock")) +
+  geom_line(aes(y = Commodity, color = "Commodity")) +
+  labs(title = paste("2. Après DTW : Séries Alignées (radius =", radius1, ")"),
+       x = paste("Indice Alignement (L:", length(aligned_X1), ")"),
+       y = "Prix de Clôture (Aligné)",
+       color = "Série") +
+  theme_minimal() +
+  scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
+
+#radius2
+plot_after2 <- ggplot(df_aligned2, aes(x = Index)) +
+  geom_line(aes(y = Stock, color = "Stock")) +
+  geom_line(aes(y = Commodity, color = "Commodity")) +
+  labs(title = paste("3. Après DTW : Séries Alignées (radius =", radius2, ")"),
+       x = paste("Indice Alignement (L:", length(aligned_X2), ")"),
+       y = "Prix de Clôture (Aligné)",
+       color = "Série") +
+  theme_minimal() +
+  scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
+
+# =======================================================
+# 6. Display plots side by side
+# =======================================================
+gridExtra::grid.arrange(plot_before, plot_after1, plot_after2, ncol = 3)
+
+```
+
+```{r}
+length(aligned_X)
+length(aligned_Y)
+
+```
+
 
 ### Calcul théorique de complexité
 
