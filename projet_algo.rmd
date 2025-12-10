@@ -31,6 +31,9 @@ if (!requireNamespace("ProjetM2Algo", quietly = TRUE)) {
 
 # Charger le package
 library(ProjetM2Algo)
+library(dplyr)
+library(ggplot2)
+
 ```
 \newpage
 
@@ -50,8 +53,9 @@ Les séries temporelles sont utilisées dans plusieurs domaines, comme en médec
 Dans ces deux disciplines, l’analyse de ces séries temporelles peut être cruciale, notamment pour le diagnostic d’une anomalie ou de la détection d’un comportement particulier.
 Dans notre cas, nous allons nous intéresser à une méthode permettant de classifier les séries temporelles.
 Dans un premier temps, nous allons utiliser deux algorithmes qui vont nous permettre de comparer deux séries entre elles.
-Plus précisément, nous allons utiliser l’algorithme DTW, puis une amélioration de cet algorithme appelée FastDTW.
-Enfin, nous choisirons le meilleur algorithme pour la classification.
+
+Plus précisément, nous allons utiliser l’algorithme DTW, puis deux amélioration  de cet algorithme.
+Enfin, nous choisirons le meilleur algorithme pour la classification dans le cadre financier.
 
 
 
@@ -172,7 +176,6 @@ Le DTW a « déformé » le temps pour trouver un alignement optimal entre les p
 
 
 ```{r}
-
 x <- c(1, 3, 4, 9)
 y <- c(1, 3, 7, 8, 9)
 dtw_result <- dtw(x, y)
@@ -206,16 +209,21 @@ théorique du DTW.
 
 ```{r}
 # R
-res <- simulation_dtw(debut = 10, fin = 500, pas = 10)
+res <- simulation_dtw(debut = 100, fin = 500, pas = 10)
 res$pente
 
 ```
 
 ```{r}
 # C++
-res <- simulation_dtw_rcpp(debut = 10, fin = 1000, pas = 10)
+res <- simulation_dtw_rcpp(debut = 100, fin = 500, pas = 10)
 res$pente
 ```
+
+Finalement, nous constatons que le temps d’exécution de l’algorithme en R et en C++ n’est pas du même ordre de grandeur: pour une série de taille 500, le programme en R prend 0,1 seconde, tandis que celui en C++ ne prend que 0,005 seconde.
+
+
+
 
 
 ## Algorithme du DTW avec bande de Sakoe Chiba fixe - Sakoe Chiba Band
@@ -418,6 +426,22 @@ On voit conformément au résultat théorique attendu qu'on a une complexité $O
 
 
 
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+=======
+>>>>>>> b1192dc85405ea831bbfe7076b0e89f41ca173a9
+=======
+
+
+
+
+
+>>>>>>> 28d2f2e (Sauvegarde des changements locaux avant rebase)
+>>>>>>> c131f9fab53787ae2e28d65da85b0796974d1556
 ## Segmental DTW 
 
 
