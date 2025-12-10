@@ -256,79 +256,43 @@ En limitant les correspondances possibles, l’algorithme améliore non seulemen
 ### Application : comparaison de cours de bourse des stocks d'une entreprise et d'un stock de matière première
 
 **Problématique** : Les séries sont à des fréquences différentes. Evaluer analytiquement des similarités structurelles entre des séries.
-```{r}
-library(dplyr)
-library(ggplot2)
-library(gridExtra)
 
+
+```{r}
+library(tidyr)
 ###  Charge les données depuis le package
 path_stock <- system.file("extdata", "stock.csv", package = "ProjetM2Algo")
 path_com <- system.file("extdata", "commodity.csv", package = "ProjetM2Algo")
 
-df_stock <- read.csv(path_stock)
-df_com <- read.csv(path_com)
+df_stock <- read.csv(path_stock , sep=",")
+df_com <- read.csv(path_com, sep =",")
+```
+
+```{r}
+
+
+df_com <- df_com %>%
+
+  mutate(Close = as.numeric(Close)) %>% 
+
+  mutate(Close = ifelse(is.na(Close) | Close == 0.0000 | Close<1, NA, Close)) %>%
+ 
+  fill(Close, .direction = "down") %>%
+  fill(Close, .direction = "up")
 
 df_stock$Date <- as.Date(df_stock$Date)
 df_com$Date <- as.Date(df_com$Date)
 
 
-
 X <- df_stock$Close
 Y <- df_com$Close
-
-radius <- 100
-dtw_result <- dtw_sakoe_chiba_rcpp(X, Y, radius = radius)
-
-
-#Indices pour radius
-path <- dtw_result$path
-idx_x <- sapply(path, `[[`, 1)
-idx_y <- sapply(path, `[[`, 2)
-
-aligned_X <- X[idx_x]
-aligned_Y <- Y[idx_y]
-
-df_aligned <- data.frame(
-  Index = seq_along(aligned_X),
-  Stock = aligned_X,
-  Commodity = aligned_Y
-)
-
-
-df_before <- full_join(
-  df_stock %>% rename(Stock = Close),
-  df_com %>% rename(Commodity = Close),
-  by = "Date"
-)
-
-plot_before <- ggplot(df_before, aes(x = Date)) +
-  geom_line(aes(y = Stock, color = "Stock")) +
-  geom_line(aes(y = Commodity, color = "Commodity")) +
-  labs(title = "Avant DTW : Séries Brutes",
-       y = "Prix de Clôture",
-       color = "Série") +
-  theme_minimal() +
-  scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
-
-#radius1
-plot_after <- ggplot(df_aligned, aes(x = Index)) +
-  geom_line(aes(y = Stock, color = "Stock")) +
-  geom_line(aes(y = Commodity, color = "Commodity")) +
-  labs(title = paste("Après DTW (radius =", radius, ")"),
-       x = paste("Indice Alignement (L:", length(aligned_X), ")"),
-       y = "Prix de Clôture (Aligné)",
-       color = "Série") +
-  theme_minimal() +
-  scale_color_manual(values = c("Stock" = "blue", "Commodity" = "red"))
-
-#affichage
-gridExtra::grid.arrange(plot_before, plot_after, ncol = 2)
 
 ```
 
 
+
 ```{r}
-plot_before_after(X,Y,radius=1 , dtw_sakoe_chiba_rcpp())
+plot_dtw_comparison_simple(X,Y,radius=100 , dtw_sakoe_chiba_rcpp)
 ```
 
 ### Calcul théorique de complexité
