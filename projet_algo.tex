@@ -1,0 +1,1029 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{fontspec}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Projet d'Algorithmique : Classification des séries temporelles à l'aide du Dynamic Time Warping},
+  pdfauthor={Sarah Eliko, Fatima-Zahra Aklila , Samira Sonfack},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Projet d'Algorithmique : Classification des séries temporelles à
+l'aide du Dynamic Time Warping}
+\author{Sarah Eliko, Fatima-Zahra Aklila , Samira Sonfack}
+\date{10 December 2025}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\newpage
+
+\section*{Introduction}\label{introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Le mathématicien Al-Khwarizmi a rédigé de nombreux travaux qui furent
+traduits au XIIe siècle. C'est d'ailleurs de son nom que provient le mot
+« algorithme ». Un algorithme peut être défini comme un enchaînement
+d'instructions logiques permettant de résoudre un problème. Il constitue
+la traduction d'un raisonnement en un pseudo-code. Mais dans quelles
+circonstances construit-on un algorithme, et comment intervient
+l'algorithmique dans ce processus ? Lorsqu'une problématique nécessite
+une méthode de calcul efficace, il devient nécessaire d'adopter une
+démarche algorithmique. L'algorithmique regroupe l'ensemble des méthodes
+génériques permettant de résoudre des problèmes. Elle s'intéresse aussi
+à l'étude de la complexité de ces méthodes, c'est-à-dire à leur
+rapidité, leur efficacité et leur capacité à s'adapter à différents cas.
+Autrement dit, elle ne se limite pas à la simple écriture d'un
+algorithme, mais vise à concevoir la meilleure approche possible pour
+atteindre un résultat fiable et optimisé. Aujourd'hui, au XXIe siècle,
+de nombreux mathématiciens et informaticiens ont inventé, amélioré et
+publié diverses méthodes de résolution. Ces avancées nous permettent de
+disposer d'outils conceptuels pour résoudre des problèmes complexes.
+
+La résolution d'une problématique passe d'abord par l'évaluation de la
+complexité du problème, puis par le choix d'une méthode adaptée, d'où
+l'utilisation de l'algorithmique. Vient ensuite la construction du
+programme à l'aide de l'algorithme et en utilisant un langage de
+programmation choisi. Après l'exécution du programme, un résultat
+concret est obtenu, traduisant la pertinence de la méthode employée.
+
+\subsection*{Contexte}\label{contexte}
+\addcontentsline{toc}{subsection}{Contexte}
+
+Une série temporelle est une suite chronologique de valeurs numériques.
+Les séries temporelles sont utilisées dans plusieurs domaines, comme en
+médecine, par exemple pour le suivi d'une constante vitale au cours du
+temps, ou encore en finance pour le suivi du cours d'une action. Dans
+ces deux disciplines, l'analyse de ces séries temporelles peut être
+cruciale, notamment pour le diagnostic d'une anomalie ou de la détection
+d'un comportement particulier. Dans notre cas, nous allons nous
+intéresser à une méthode permettant de classifier les séries
+temporelles. Dans un premier temps, nous allons utiliser deux
+algorithmes qui vont nous permettre de comparer deux séries entre elles.
+
+Plus précisément, nous allons utiliser l'algorithme DTW, puis deux
+amélioration de cet algorithme. Enfin, nous choisirons le meilleur
+algorithme pour la classification dans le cadre financier.
+
+\section{Dynamic Time Warping}\label{dynamic-time-warping}
+
+L'algorithme Dynamic Time Warping (DTW) ou Déformation Temporelle
+Dynamique, permet de mesurer la similarité entre deux séries temporelles
+qui peuvent différer en vitesse ou en phase.
+
+Cette méthode aligne de manière non linéaire deux séquences temporelles
+pour obtenir la correspondance optimale entre leurs éléments.
+
+Soient deux séries temporelles : \[
+X = (x_1, x_2, \dots, x_n)
+\quad \text{et} \quad
+Y = (y_1, y_2, \dots, y_m)
+\]
+
+On définit la distance D entre deux points correspondants : \[
+D(i,j) = (x_i - y_j)^2
+\]
+
+Le but du DTW est de construire une matrice de coût cumulatif \(C\), où
+chaque élément \(C(i,j)\) représente le coût minimal d'alignement des
+sous-séquences \((x_1, \dots, x_i)\) et \((y_1, \dots, y_j)\).\\
+Cette matrice est calculée récursivement selon : \[
+C(i,j) =
+\begin{cases}
+D(1,1), & \text{si } i = 1, j = 1, \\[8pt]
+D(i,1) + C(i-1,1), & \text{si } j = 1, i > 1, \\[8pt]
+D(1,j) + C(1,j-1), & \text{si } i = 1, j > 1, \\[8pt]
+D(i,j) + \min \big( C(i-1,j), \; C(i,j-1), \; C(i-1,j-1) \big), & \text{sinon.}
+\end{cases}
+\]
+
+L'objectif de la méthode DTW est de trouver le chemin optimal qui
+minimise la distance totale entre les deux séries temporelles.
+
+La distance DTW finale est alors donnée par : \[
+DTW(n,m) = \min_{\pi} \sum_{(i,j) \in \pi} D(i,j)
+\] où \(\pi\) désigne l'ensemble des chemins de warping valides reliant
+les points \((1,1)\) et \((n,m)\).
+
+Dans la pratique, cette distance correspond à la valeur du dernier
+élément de la matrice de coût cumulatif : \[
+DTW(X,Y) = C(n,m)
+\]
+
+\subsection{Algorithme du DTW}\label{algorithme-du-dtw}
+
+L'algorithme DTW repose sur la programmation dynamique.
+
+Il consiste à remplir progressivement la matrice de coût cumulé \(C\).
+
+\begin{verbatim}
+Algorithme DTW(x, y):
+1. Initialiser D[i,j] = |x_i - y_j|
+2. Initialiser C[1,1] = D[1,1]
+3. Remplir la première ligne et la première colonne de C
+4. Pour i=2..n, j=2..m :
+     C[i,j] = D[i,j] + min(C[i-1,j-1], C[i-1,j], C[i,j-1])
+5. Rétrotraçage pour obtenir le chemin optimal
+6. Retourner C, traceback, path 
+\end{verbatim}
+
+Path correspond au chemin optimal. La complexité en temps de
+l'algorithme DTW est de l'ordre de \(O(NM)\).
+
+\subsubsection{Exemple d'application}\label{exemple-dapplication}
+
+Considérons les deux séries temporelles suivantes : \[
+X = (1, 2, 3, 4)
+\quad \text{et} \quad
+Y = (1, 1, 2, 3, 5)
+\]
+
+Calcul de la matrice de distances locales \(D(i,j)\) :
+
+\[
+D =
+\begin{bmatrix}
+0 & 0 & 1 & 4 & 16 \\
+1 & 1 & 0 & 1 & 9 \\
+4 & 4 & 1 & 0 & 4 \\
+9 & 9 & 4 & 1 & 1 \\
+\end{bmatrix}
+\]
+
+Calcul de la matrice de coût cumulatif \(C(i,j)\) :
+
+En remplissant la matrice pas à pas, on obtient :
+
+\[
+C =
+\begin{bmatrix}
+0 & 0 & 1 & 5 & 21 \\
+1 & 1 & 0 & 1 & 10 \\
+5 & 5 & 1 & 0 & 4 \\
+14 & 14 & 5 & 1 & 2 \\
+\end{bmatrix}
+\]
+
+La distance DTW entre \(X\) et \(Y\) est donnée par le dernier élément
+de la matrice : \[
+DTW(X,Y) = C(4,5) = 2
+\]
+
+Cette valeur faible indique que les deux séries sont similaires, même si
+elles ne sont pas parfaitement alignées temporellement.
+
+Le DTW a « déformé » le temps pour trouver un alignement optimal entre
+les points de \(X\) et \(Y\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{9}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{)}
+\NormalTok{dtw\_result }\OtherTok{\textless{}{-}} \FunctionTok{dtw}\NormalTok{(x, y)}
+\NormalTok{dtw\_result}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $DTW_matrix
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    0    2    8   15   23
+## [2,]    2    0    4    9   15
+## [3,]    5    1    3    7   12
+## [4,]   13    7    3    4    4
+## 
+## $traceback_matrix
+##      [,1] [,2]   [,3]   [,4]   [,5]  
+## [1,] ""   "left" "left" "left" "left"
+## [2,] "up" "diag" "left" "left" "left"
+## [3,] "up" "up"   "diag" "left" "left"
+## [4,] "up" "up"   "diag" "diag" "left"
+## 
+## $path
+## $path[[1]]
+## [1] 1 1
+## 
+## $path[[2]]
+## [1] 2 2
+## 
+## $path[[3]]
+## [1] 3 3
+## 
+## $path[[4]]
+## [1] 4 4
+## 
+## $path[[5]]
+## [1] 4 5
+\end{verbatim}
+
+Nous cherchons maintenant à retrouver expérimentalement la complexité de
+l'algorithme DTW. Lorsque les deux séries ont la même longueur \(n\), le
+temps d'exécution peut alors s'écrire sous la forme :
+
+\[
+T(n) = C \cdot n^2,
+\]
+
+où \(C\) est une constante correspondant au coût d'un calcul
+élémentaire. Cette constante ne dépend pas de \(n\).
+
+Pour analyser la complexité à partir des mesures expérimentales, nous
+traçons le graphique en échelle log-log. En prenant le logarithme de
+l'expression précédente, on obtient :
+
+\[
+\log T(n) = \log C + 2 \log n.
+\]
+
+Cette équation est de la forme d'une droite, dont l'ordonnée à l'origine
+est \(\log C\) et dont la pente vaut \(2\). Ainsi, si le graphique
+\(\log(n)\) -- \(\log(T)\) présente une pente proche de \(2\), cela
+confirme expérimentalement la complexité quadratique théorique du DTW.
+
+\subsubsection{Simulation de la
+complexité}\label{simulation-de-la-complexituxe9}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# R}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{simulation\_dtw}\NormalTok{(}\AttributeTok{debut =} \DecValTok{100}\NormalTok{, }\AttributeTok{fin =} \DecValTok{500}\NormalTok{, }\AttributeTok{pas =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{projet_algo_files/figure-latex/unnamed-chunk-3-1.pdf}
+\includegraphics{projet_algo_files/figure-latex/unnamed-chunk-3-2.pdf}
+
+\begin{verbatim}
+## Pente estimée sur le graphique log-log : 2.15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res}\SpecialCharTok{$}\NormalTok{pente}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## log(Taille) 
+##    2.153982
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# C++}
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{simulation\_dtw\_rcpp}\NormalTok{(}\AttributeTok{debut =} \DecValTok{100}\NormalTok{, }\AttributeTok{fin =} \DecValTok{500}\NormalTok{, }\AttributeTok{pas =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{projet_algo_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{projet_algo_files/figure-latex/unnamed-chunk-4-2.pdf}
+
+\begin{verbatim}
+## Pente estimée sur le graphique log-log : -0.14
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res}\SpecialCharTok{$}\NormalTok{pente}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## log(Taille) 
+##  -0.1411961
+\end{verbatim}
+
+Finalement, nous constatons que le temps d'exécution de l'algorithme en
+R et en C++ n'est pas du même ordre de grandeur: pour une série de
+taille 500, le programme en R prend 0,1 seconde, tandis que celui en C++
+ne prend que 0,005 seconde.
+
+\subsection{Algorithme du DTW avec bande de Sakoe Chiba fixe - Sakoe
+Chiba
+Band}\label{algorithme-du-dtw-avec-bande-de-sakoe-chiba-fixe---sakoe-chiba-band}
+
+L'algorithme de \textbf{Sakoe--Chiba} introduit une contrainte locale
+appelée \textbf{bande de Chiba} afin de limiter les déformations
+autorisées lors du calcul du \emph{Dynamic Time Warping} (DTW). Dans la
+formulation classique de la DTW, la matrice de coût est entièrement
+parcourue, ce qui conduit à une complexité temporelle en \(O(N^2)\) pour
+deux signaux de longueur \(N\).
+
+Or lorsqu'on applique l'algorithme sur la même série on voit que le
+chemin optimal correspond à la diagonale et s'en éloigne d'autant plus
+que les séries diffèrent. La bande de Chiba impose que l'alignement
+optimal reste à l'intérieur d'une fenêtre de largeur prédéfinie autour
+de la diagonale principale.Une variante propose une fenêtre mobile sous
+forme de matrice dde ``région'': - pour un point \((i,j)\), seules les
+cellules telles que\\
+\[
+  |i - j| \leq \text{radius}
+  \]\\
+sont considérées ;
+
+On considèrera ici à \textbf{une taille de bande fixe} \textbf{radius}
+dans toutes les directions. Ainsi, seuls les coûts des cellules situées
+dans cette zone restreinte sont évalués.
+
+Grâce à cette contrainte, le nombre d'opérations nécessaires est
+considérablement réduit, faisant passer la complexité temporelle à :
+
+\[
+O(N \cdot w)
+\]
+
+où \(w\) est la demi-largeur de la bande, généralement beaucoup plus
+petite que \(N\).
+
+En limitant les correspondances possibles, l'algorithme améliore non
+seulement l'efficacité computationnelle, mais également la robustesse de
+l'alignement, tout en conservant une bonne précision lorsque les signaux
+ne présentent pas de fortes distorsions temporelles.
+
+\subsubsection{Application : comparaison de cours de bourse des stocks
+d'une entreprise et d'un stock de matière
+première}\label{application-comparaison-de-cours-de-bourse-des-stocks-dune-entreprise-et-dun-stock-de-matiuxe8re-premiuxe8re}
+
+\textbf{Problématique} : Les séries sont à des fréquences différentes.
+Evaluer analytiquement des similarités structurelles entre des séries.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyr)}
+\DocumentationTok{\#\#\#  Charge les données depuis le package}
+\NormalTok{path\_stock }\OtherTok{\textless{}{-}} \FunctionTok{system.file}\NormalTok{(}\StringTok{"extdata"}\NormalTok{, }\StringTok{"stock.csv"}\NormalTok{, }\AttributeTok{package =} \StringTok{"ProjetM2Algo"}\NormalTok{)}
+\NormalTok{path\_com }\OtherTok{\textless{}{-}} \FunctionTok{system.file}\NormalTok{(}\StringTok{"extdata"}\NormalTok{, }\StringTok{"commodity.csv"}\NormalTok{, }\AttributeTok{package =} \StringTok{"ProjetM2Algo"}\NormalTok{)}
+
+\NormalTok{df\_stock }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(path\_stock , }\AttributeTok{sep=}\StringTok{","}\NormalTok{)}
+\NormalTok{df\_com }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(path\_com, }\AttributeTok{sep =}\StringTok{","}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_com }\OtherTok{\textless{}{-}}\NormalTok{ df\_com }\SpecialCharTok{\%\textgreater{}\%}
+
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Close =} \FunctionTok{as.numeric}\NormalTok{(Close)) }\SpecialCharTok{\%\textgreater{}\%} 
+
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Close =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(Close) }\SpecialCharTok{|}\NormalTok{ Close }\SpecialCharTok{==} \FloatTok{0.0000} \SpecialCharTok{|}\NormalTok{ Close}\SpecialCharTok{\textless{}}\DecValTok{1}\NormalTok{, }\ConstantTok{NA}\NormalTok{, Close)) }\SpecialCharTok{\%\textgreater{}\%}
+ 
+  \FunctionTok{fill}\NormalTok{(Close, }\AttributeTok{.direction =} \StringTok{"down"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{fill}\NormalTok{(Close, }\AttributeTok{.direction =} \StringTok{"up"}\NormalTok{)}
+
+\NormalTok{df\_stock}\SpecialCharTok{$}\NormalTok{Date }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(df\_stock}\SpecialCharTok{$}\NormalTok{Date)}
+\NormalTok{df\_com}\SpecialCharTok{$}\NormalTok{Date }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(df\_com}\SpecialCharTok{$}\NormalTok{Date)}
+
+
+\NormalTok{X }\OtherTok{\textless{}{-}}\NormalTok{ df\_stock}\SpecialCharTok{$}\NormalTok{Close}
+\NormalTok{Y }\OtherTok{\textless{}{-}}\NormalTok{ df\_com}\SpecialCharTok{$}\NormalTok{Close}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_dtw\_comparison\_simple}\NormalTok{(X,Y,}\AttributeTok{radius=}\DecValTok{100}\NormalTok{ , dtw\_sakoe\_chiba\_rcpp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Calcul DTW avec radius = 100 ...
+\end{verbatim}
+
+\includegraphics{projet_algo_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\subsubsection{Calcul théorique de
+complexité}\label{calcul-thuxe9orique-de-complexituxe9}
+
+Soit deux séries temporelles de longueur égale \(N\).
+
+Avec \textbf{une bande de Chiba de radius \(r\)} (fenêtre fixe autour de
+la diagonale), seules les cellules telles que \(|i - j| \le r\) sont
+calculées.
+
+Chaque ligne de la matrice contient au maximum \(2r + 1\) cellules
+évaluées. La complexité devient donc :
+
+\[
+T_{\text{DTW\_bande}}(N, r) = O(N \cdot (2r + 1)) \approx O(N \cdot r)
+\]
+
+où \(r\) est généralement beaucoup plus petit que \(N\).
+
+Ainsi, la réduction de la complexité par rapport au DTW classique est
+significative, surtout pour de grandes séries temporelles.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\paragraph*{Représentation log-log}\label{repruxe9sentation-log-log}
+\addcontentsline{toc}{paragraph}{Représentation log-log}
+
+Pour visualiser la complexité, on peut utiliser une \textbf{échelle
+log-log} :
+
+\[
+x = \log(N), \quad y = \log(T(N))
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Pour le \textbf{DTW avec bande fixe} :
+\end{itemize}
+
+\[
+y = \log(N \cdot r) = \log(r) + \log(N) \approx \log(N) \quad \text{si $r$ constant}
+\]
+
+En pratique :
+
+Sur un graphique log-log, la \textbf{pente de la droite} correspond à
+l'exposant de \(N\). Donc une pente ≈ 1
+
+\#\#\#Simulation de la complexité temporelle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n\_values }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{exp}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\FunctionTok{log}\NormalTok{(}\DecValTok{50}\NormalTok{), }\FunctionTok{log}\NormalTok{(}\DecValTok{5000}\NormalTok{), }\AttributeTok{length.out =} \DecValTok{15}\NormalTok{)))}
+\NormalTok{res1 }\OtherTok{\textless{}{-}} \FunctionTok{simulate\_dtw\_sakoe\_chiba}\NormalTok{(}
+\NormalTok{      n\_values,}
+      \AttributeTok{algo\_r =}\NormalTok{ dtw\_sakoe\_chiba,}
+      \AttributeTok{algo\_rcpp =}\NormalTok{ dtw\_sakoe\_chiba\_rcpp,}
+      \AttributeTok{radius =} \DecValTok{2}\NormalTok{,}
+      \AttributeTok{plot =} \ConstantTok{TRUE}
+\NormalTok{      )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Simulation 2 (Radius = 5)}
+\NormalTok{res2 }\OtherTok{\textless{}{-}} \FunctionTok{simulate\_dtw\_sakoe\_chiba}\NormalTok{(}
+\NormalTok{    n\_values,}
+    \AttributeTok{algo\_r =}\NormalTok{ dtw\_sakoe\_chiba,}
+    \AttributeTok{algo\_rcpp =}\NormalTok{ dtw\_sakoe\_chiba\_rcpp,}
+    \AttributeTok{radius =} \DecValTok{5}\NormalTok{, }\CommentTok{\# Changer le rayon}
+    \AttributeTok{plot =} \ConstantTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'gridExtra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gridExtra}\SpecialCharTok{::}\FunctionTok{grid.arrange}\NormalTok{(}
+\NormalTok{    res1}\SpecialCharTok{$}\NormalTok{plot, }
+\NormalTok{    res2}\SpecialCharTok{$}\NormalTok{plot, }
+    \AttributeTok{ncol =} \DecValTok{2}\NormalTok{,}
+    \AttributeTok{top =} \StringTok{"Comparaison de la Complexité R vs Rcpp sous différentes contraintes radius=1 et radius=5"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{projet_algo_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Affichage des pentes }
+\FunctionTok{cat}\NormalTok{(}\StringTok{" Pentes de Complexité par Implémentation :}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Pentes de Complexité par Implémentation :
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{* Pente R (Radius 1) : **"}\NormalTok{, }\FunctionTok{round}\NormalTok{(res1}\SpecialCharTok{$}\NormalTok{slope\_r, }\DecValTok{4}\NormalTok{), }\StringTok{"**"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## * Pente R (Radius 1) : ** 1.5291 **
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{* Pente R (Radius 2) : **"}\NormalTok{, }\FunctionTok{round}\NormalTok{(res2}\SpecialCharTok{$}\NormalTok{slope\_r, }\DecValTok{4}\NormalTok{), }\StringTok{"**"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## * Pente R (Radius 2) : ** 1.3996 **
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{* Pente Rcpp (Radius 1) : **"}\NormalTok{, }\FunctionTok{round}\NormalTok{(res1}\SpecialCharTok{$}\NormalTok{slope\_rcpp, }\DecValTok{4}\NormalTok{), }\StringTok{"**"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## * Pente Rcpp (Radius 1) : ** 0.897 **
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{* Pente Rcpp (Radius 2) : **"}\NormalTok{, }\FunctionTok{round}\NormalTok{(res2}\SpecialCharTok{$}\NormalTok{slope\_rcpp, }\DecValTok{4}\NormalTok{), }\StringTok{"**"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## * Pente Rcpp (Radius 2) : ** 0.9324 **
+\end{verbatim}
+
+On voit conformément au résultat théorique attendu qu'on a une
+complexité \(O(N)\) avec un pente très proche de 1 pour le code Rcpp et
+légèrement supérieure à 1 en R. On vérifie également que la
+\textbf{complexité varie peu selon le radius} . Les résultats autour de
+\textbf{1.45} pour le code R mettent en évidence les faiblesses de
+l'interpréteur R qui introduit un temps de calcul supplémentaire qui
+augmente avec la valeur de N. Rcpp à contrario est compilé et facilite
+les calculs lourds tels que les boucles imbriquées. De plus les type
+Rcpp optimise la gestion de la mémoire.
+
+\section{\textless\textless\textless\textless\textless\textless\textless{}
+HEAD}\label{head}
+
+\textless\textless\textless\textless\textless\textless\textless{} HEAD
+
+\section{\textless\textless\textless\textless\textless\textless\textless{}
+HEAD}\label{head-1}
+
+\section{\textgreater\textgreater\textgreater\textgreater\textgreater\textgreater\textgreater{}
+b1192dc85405ea831bbfe7076b0e89f41ca173a9}\label{b1192dc85405ea831bbfe7076b0e89f41ca173a9}
+
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+\begin{quote}
+28d2f2e (Sauvegarde des changements locaux avant rebase)
+c131f9fab53787ae2e28d65da85b0796974d1556 \#\# Segmental DTW
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+\end{quote}
+
+Le segmental DTW (SDTW) est une variante du DTW classique utilisée pour
+comparer deux séries temporelles par segments plutôt que globalement.
+
+Il repose sur 3 idées principales : - Au lieu de comparer toute la série
+X avec toute la série Y, on découpe Y en segments de longueur fixe. - On
+effectue le DTW sur chaque segment séparément. - Ensuite, on combine les
+distances segmentales pour obtenir une distance globale ou un alignement
+segment par segment.
+
+\subsubsection{Etapes de Segmental DTW}\label{etapes-de-segmental-dtw}
+
+\paragraph{Segmentation}\label{segmentation}
+
+Dans le code, la première étape consiste à diviser la série serie2 en
+segments de longueur fixe segment\_length :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{serie1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\NormalTok{serie2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{segment\_length }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{segments }\OtherTok{\textless{}{-}} \FunctionTok{segment\_series}\NormalTok{(serie2, segment\_length)}
+\end{Highlighting}
+\end{Shaded}
+
+Cette étape permet de traiter serie2 par blocs, ce qui est plus efficace
+et facilite l'analyse locale.
+
+\paragraph{Calcul du DTW pour chaque
+segment}\label{calcul-du-dtw-pour-chaque-segment}
+
+Ensuite, pour chaque segment, le code calcule le DTW entre serie1
+complète et les segments courants de la serie2 :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dtw\_segments }\OtherTok{\textless{}{-}} \FunctionTok{compute\_segment\_dtw}\NormalTok{(serie1, serie2, segments)}
+\NormalTok{dtw\_segments[}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [[1]]$DTW_matrix
+##      [,1] [,2]
+## [1,]    0    1
+## [2,]    2    1
+## [3,]    5    3
+## [4,]   13   10
+## [5,]   20   16
+## 
+## [[1]]$traceback_matrix
+##      [,1] [,2]  
+## [1,] ""   "left"
+## [2,] "up" "diag"
+## [3,] "up" "up"  
+## [4,] "up" "up"  
+## [5,] "up" "up"  
+## 
+## [[1]]$path
+## [[1]]$path[[1]]
+## [1] 1 1
+## 
+## [[1]]$path[[2]]
+## [1] 2 2
+## 
+## [[1]]$path[[3]]
+## [1] 3 2
+## 
+## [[1]]$path[[4]]
+## [1] 4 2
+## 
+## [[1]]$path[[5]]
+## [1] 5 2
+\end{verbatim}
+
+Chaque élément de dtw\_segments contient la matrice des coûts cumulés
+frame-level, le chemin optimal et la matrice de traces pour reconstruire
+le chemin. Cette étape correspond à l'alignement local segment par
+segment, au lieu d'un DTW global sur toute la série 2.
+
+\paragraph{Calcul des coûts
+segmentaux}\label{calcul-des-couxfbts-segmentaux}
+
+Pour combiner les distances locales, le code extrait la dernière ligne
+de chaque matrice DTW pour chaque segment :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{seg\_cost\_list }\OtherTok{\textless{}{-}} \FunctionTok{compute\_segment\_level\_cost}\NormalTok{(dtw\_segments)}
+\NormalTok{seg\_cost\_list}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 20 16
+## 
+## [[2]]
+## [1] 14 11
+## 
+## [[3]]
+## [1] 16 14
+## 
+## [[4]]
+## [1] 20 21
+\end{verbatim}
+
+La dernière ligne de DTW\_matrix représente le coût pour atteindre
+chaque frame de serie1 à la fin du segment. seg\_cost\_list devient la
+base pour calculer le cumulative cost global segment-level.
+
+\paragraph{Cumulative cost des
+segments}\label{cumulative-cost-des-segments}
+
+Le code cumule les coûts des segments pour obtenir la distance globale :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n\_seg }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(segments)}
+\NormalTok{n\_len }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(serie1)}
+\NormalTok{cum\_cost }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{nrow=}\NormalTok{n\_seg, }\AttributeTok{ncol=}\NormalTok{n\_len)}
+\NormalTok{cum\_cost[}\DecValTok{1}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(seg\_cost\_list[[}\DecValTok{1}\NormalTok{]])] }\OtherTok{\textless{}{-}}\NormalTok{ seg\_cost\_list[[}\DecValTok{1}\NormalTok{]]}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\NormalTok{n\_seg)\{}
+\NormalTok{  seg\_cost }\OtherTok{\textless{}{-}}\NormalTok{ seg\_cost\_list[[i]]}
+  \ControlFlowTok{for}\NormalTok{(j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(seg\_cost))\{}
+\NormalTok{    min\_prev }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(cum\_cost[i}\DecValTok{{-}1}\NormalTok{, j}\SpecialCharTok{:}\NormalTok{n\_len])}
+\NormalTok{    cum\_cost[i,j] }\OtherTok{\textless{}{-}}\NormalTok{ seg\_cost[j] }\SpecialCharTok{+}\NormalTok{ min\_prev}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{cum\_cost}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   20   16  Inf  Inf  Inf
+## [2,]   30   27  Inf  Inf  Inf
+## [3,]   43   41  Inf  Inf  Inf
+## [4,]   61   62  Inf  Inf  Inf
+\end{verbatim}
+
+cum\_cost{[}i,j{]} : coût minimal pour atteindre la position j dans
+serie1 après avoir traité i segments de serie2.
+
+On effectue une recherche du minimum cumulatif sur les positions
+restantes pour connecter les segments.
+
+\paragraph{Backtrace segment-level}\label{backtrace-segment-level}
+
+Une fois la matrice cumulative calculée, on retrace le chemin optimal
+segment par segment. Cette étape permet de retrouver la séquence
+optimale de segments qui minimise la distance globale.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{path\_seg }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+\NormalTok{i }\OtherTok{\textless{}{-}}\NormalTok{ n\_seg}
+\NormalTok{j }\OtherTok{\textless{}{-}} \FunctionTok{which.min}\NormalTok{(cum\_cost[n\_seg, ])}
+\ControlFlowTok{while}\NormalTok{(i }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)\{}
+\NormalTok{  path\_seg }\OtherTok{\textless{}{-}} \FunctionTok{append}\NormalTok{(}\FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(i,j)), path\_seg)}
+  \ControlFlowTok{if}\NormalTok{(i}\SpecialCharTok{==}\DecValTok{1}\NormalTok{) }\ControlFlowTok{break}
+\NormalTok{  j }\OtherTok{\textless{}{-}} \FunctionTok{which.min}\NormalTok{(cum\_cost[i}\DecValTok{{-}1}\NormalTok{, j}\SpecialCharTok{:}\NormalTok{n\_len])}
+\NormalTok{  i }\OtherTok{\textless{}{-}}\NormalTok{ i}\DecValTok{{-}1}
+\NormalTok{\}}
+\NormalTok{path\_seg}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 1 2
+## 
+## [[2]]
+## [1] 2 1
+## 
+## [[3]]
+## [1] 3 2
+## 
+## [[4]]
+## [1] 4 1
+\end{verbatim}
+
+\paragraph{Reconstruction du chemin frame-level final et calcul de la
+distance de
+DTW}\label{reconstruction-du-chemin-frame-level-final-et-calcul-de-la-distance-de-dtw}
+
+Enfin, le code reconstitue le chemin frame-level global à partir des
+chemins de chaque segment et retourne la distance DTW finale.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{result }\OtherTok{\textless{}{-}} \FunctionTok{segmental\_dtw\_two\_series}\NormalTok{(serie1, serie2, }\AttributeTok{segment\_length =} \DecValTok{2}\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Distance DTW finale segmentale :"}\NormalTok{, result}\SpecialCharTok{$}\NormalTok{dtw\_distance, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Distance DTW finale segmentale : 61
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Chemin frame{-}level final :}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Chemin frame-level final :
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(result}\SpecialCharTok{$}\NormalTok{final\_path)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    1    1
+## [2,]    2    2
+## [3,]    1    3
+## [4,]    1    5
+## [5,]    2    5
+## [6,]    1    7
+\end{verbatim}
+
+\paragraph{Evaluation de la compléxité de Segmental
+DTW}\label{evaluation-de-la-compluxe9xituxe9-de-segmental-dtw}
+
+Soient deux séries de longueurs n et m, et un segment de longueur L. Si
+la série cible est partitionnée en \[
+S = \lceil m / L \rceil
+\] segments, la complexité totale du \textbf{Segmental DTW} s'écrit :
+
+\[
+O(S \cdot n \cdot L) = O(n \cdot m)
+\]
+
+Ce qui correspond à la complexité théorique du DTW global, mais avec
+plusieurs avantages pratiques : - \textbf{Mémoire optimisée :} seules
+des matrices de taille n×L sont allouées à chaque étape, limitant
+l'usage de la mémoire vive.
+
+\begin{itemize}
+\item
+  \textbf{Possibilité de parallélisation :} chaque segment peut être
+  traité indépendamment, ouvrant la voie à des accélérations sur
+  architectures multi-cœurs.
+\item
+  \textbf{Alignements locaux précis :} le découpage segmental permet de
+  capturer des correspondances locales qui pourraient être diluées dans
+  un DTW global.
+\end{itemize}
+
+\paragraph{Test de la complexité :}\label{test-de-la-complexituxe9}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\NormalTok{res\_complexity }\OtherTok{\textless{}{-}} \FunctionTok{segmental\_dtw\_complexity}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## n = 50 -> Temps = 0.0104 sec
+\end{verbatim}
+
+\begin{verbatim}
+## n = 100 -> Temps = 0.0473 sec
+\end{verbatim}
+
+\begin{verbatim}
+## n = 200 -> Temps = 0.1479 sec
+\end{verbatim}
+
+\begin{verbatim}
+## n = 400 -> Temps = 0.5642 sec
+\end{verbatim}
+
+\begin{verbatim}
+## n = 800 -> Temps = 1.7817 sec
+\end{verbatim}
+
+\begin{verbatim}
+## n = 1000 -> Temps = 2.8935 sec
+\end{verbatim}
+
+\begin{verbatim}
+## n = 2000 -> Temps = 13.6918 sec
+\end{verbatim}
+
+\begin{verbatim}
+## n = 3000 -> Temps = 35.7086 sec
+\end{verbatim}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{projet_algo_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Exposant empirique estimé :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(res\_complexity}\SpecialCharTok{$}\NormalTok{slope, }\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Exposant empirique estimé : 1.93"
+\end{verbatim}
+
+Cette valeur de pente confirme que la méthode est très efficace pour de
+longues séries segmentées, tout en restant fidèle à sa complexité
+théorique.
+
+\section{Conclusion}\label{conclusion}
+
+L'exploration en profondeur de plusieurs varaintes du \textbf{Dynamic
+Time Wraping} nous a permis de vérifier la théorie et voir à quel point
+le Rcpp peut l'améliorer largement. Nous avons confirmé
+expérimentalement la complexité quadratique du DTW classique, ainsi qu
+el'apport majeur des contraintes locales telles que \textbf{la bande de
+Sakoe-Chibe}, qui réduisent la complexité à un ordre linéaire tout en
+préservant la qualité de l'alignement. Enfin, le \textbf{Segmental DTW}
+offre un compromis intéressant: il conserve la complexité théorique
+globale tout en améliorant lagestion de mémoire, la précision locale et
+le potentiel de prallélisation.
+
+\end{document}
