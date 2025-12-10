@@ -1,18 +1,22 @@
 ---
-title: "Projet d’Algorithmique : Classification des séries temporelles à l'aide Dynamic Time Wraping"
+title: "Projet d’Algorithmique : Classification des séries temporelles à l'aide du Dynamic Time Warping"
 author: "Sarah Eliko, Fatima-Zahra Aklila , Samira Sonfack"
 date: "`r format(Sys.Date(), '%d %B %Y')`"
 output:
-  html_document:
-    toc: true
-    toc_depth: '2'
-    df_print: paged
   pdf_document:
     toc: true
     toc_depth: 2
     number_sections: true
     highlight: tango
     latex_engine: xelatex
+    extra_dependencies: ["fontspec"]
+  html_document:
+    toc: true
+    toc_depth: 2
+    df_print: paged
+  #header-includes:
+  # \setmainfont{Arial}
+
 geometry: margin=2.5cm
 fontsize: 12pt
 ---
@@ -30,7 +34,7 @@ library(ProjetM2Algo)
 ```
 \newpage
 
-# Introduction
+# Introduction {-}
 
 Le mathématicien Al-Khwarizmi a rédigé de nombreux travaux qui furent traduits au XIIe siècle. C’est d’ailleurs de son nom que provient le mot « algorithme ».
 Un algorithme peut être défini comme un enchaînement d’instructions logiques permettant de résoudre un problème. Il constitue la traduction d’un raisonnement en un pseudo-code. Mais dans quelles circonstances construit-on un algorithme, et comment intervient l’algorithmique dans ce processus ? Lorsqu’une problématique nécessite une méthode de calcul efficace, il devient nécessaire d’adopter une démarche algorithmique. L’algorithmique regroupe l’ensemble des méthodes génériques permettant de résoudre des problèmes. Elle s’intéresse aussi à l’étude de la complexité de ces méthodes, c’est-à-dire à leur rapidité, leur efficacité et leur capacité à s’adapter à différents cas. Autrement dit, elle ne se limite pas à la simple écriture d’un algorithme, mais vise à concevoir la meilleure approche possible pour atteindre un résultat fiable et optimisé.
@@ -39,7 +43,7 @@ Aujourd’hui, au XXIe siècle, de nombreux mathématiciens et informaticiens on
 La résolution d’une problématique passe d’abord par l’évaluation de la complexité du problème, puis par le choix d’une méthode adaptée, d’où l’utilisation de l’algorithmique. Vient ensuite la construction du programme à l’aide de l’algorithme et en utilisant un langage de programmation choisi. Après l’exécution du programme, un résultat concret est obtenu, traduisant la pertinence de la méthode employée.
 
 
-## Contexte
+## Contexte {-}
 
 Une série temporelle est une suite chronologique de valeurs numériques.
 Les séries temporelles sont utilisées dans plusieurs domaines, comme en médecine, par exemple pour le suivi d’une constante vitale au cours du temps, ou encore en finance pour le suivi du cours d’une action.
@@ -122,7 +126,7 @@ La complexité en temps de l’algorithme DTW est de l’ordre de $O(NM)$.
 
 
 
-## Exemple d'application
+### Exemple d'application
 
 Considérons les deux séries temporelles suivantes :
 \[
@@ -241,9 +245,9 @@ où $w$ est la demi-largeur de la bande, généralement beaucoup plus petite que
 En limitant les correspondances possibles, l’algorithme améliore non seulement l’efficacité computationnelle, mais également la robustesse de l’alignement, tout en conservant une bonne précision lorsque les signaux ne présentent pas de fortes distorsions temporelles.
 
 
-#### Application : comparaison de cours de bourse des stocks d'une entreprise et d'un stock de matière première (pétrole) 
+### Application : comparaison de cours de bourse des stocks d'une entreprise et d'un stock de matière première
 
-**Problématique** : Les séries sont à des fréquences différentes. Déterminer l'appartenance d'une entreprise à un secteur , évaluer analytiquement la corrélation entre les cours de bourse
+**Problématique** : Les séries sont à des fréquences différentes. Evaluer analytiquement des similarités structurelles entre des séries.
 ```{r}
 library(dplyr)
 library(ggplot2)
@@ -315,6 +319,10 @@ gridExtra::grid.arrange(plot_before, plot_after, ncol = 2)
 ```
 
 
+```{r}
+plot_before_after(X,Y,radius=1 , dtw_sakoe_chiba_rcpp())
+```
+
 ### Calcul théorique de complexité
 
 
@@ -325,8 +333,9 @@ Avec **une bande de Chiba de radius $r$** (fenêtre fixe autour de la diagonale)
 Chaque ligne de la matrice contient au maximum $2r + 1$ cellules évaluées. La complexité devient donc :
 
 $$
-T_{\text{DTW_bande}}(N, r) = O(N \cdot (2r + 1)) \approx O(N \cdot r)
+T_{\text{DTW\_bande}}(N, r) = O(N \cdot (2r + 1)) \approx O(N \cdot r)
 $$
+
 
 où $r$ est généralement beaucoup plus petit que $N$.  
 
@@ -334,7 +343,7 @@ Ainsi, la réduction de la complexité par rapport au DTW classique est signific
 
 ---
 
-### Représentation log-log
+#### Représentation log-log {-} 
 
 Pour visualiser la complexité, on peut utiliser une **échelle log-log** :
 
