@@ -294,6 +294,10 @@ Y <- df_com$Close
 ```{r}
 plot_dtw_comparison_simple(X,Y,radius=100 , dtw_sakoe_chiba_rcpp)
 ```
+```{r}
+plot_dtw_comparison_simple(X,Y,radius=30 , dtw_sakoe_chiba_rcpp)
+```
+
 
 ### Calcul théorique de complexité
 
@@ -369,7 +373,7 @@ gridExtra::grid.arrange(
     res1$plot, 
     res2$plot, 
     ncol = 2,
-    top = "Comparaison de la Complexité R vs Rcpp sous différentes contraintes radius=1 et radius=5"
+    top = "ComplexitéR vs Rcpp sous différentes contraintes radius=1 et radius=5"
 )
 ```
 
@@ -390,22 +394,6 @@ On voit conformément au résultat théorique attendu qu'on a une complexité $O
 
 
 
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-=======
->>>>>>> b1192dc85405ea831bbfe7076b0e89f41ca173a9
-=======
-
-
-
-
-
->>>>>>> 28d2f2e (Sauvegarde des changements locaux avant rebase)
->>>>>>> c131f9fab53787ae2e28d65da85b0796974d1556
 ## Segmental DTW 
 
 
@@ -534,7 +522,7 @@ print(paste("Exposant empirique estimé :", round(res_complexity$slope, 2)))
 Cette valeur de pente confirme que la méthode est très efficace pour de longues séries segmentées, tout en restant fidèle à sa complexité théorique.
 
 
-# Conclusion 
+# Conclusion {-}
 L'exploration en profondeur de plusieurs varaintes du **Dynamic Time Wraping** nous a permis de vérifier la théorie et voir à quel point le Rcpp peut l'améliorer largement.
 Nous avons confirmé expérimentalement la complexité quadratique du DTW classique, ainsi qu el'apport majeur des contraintes locales telles que **la bande de Sakoe-Chibe**, qui réduisent la complexité à un ordre linéaire tout en préservant la qualité de l'alignement. 
 Enfin, le **Segmental DTW** offre un compromis intéressant: il conserve la complexité théorique globale tout en améliorant lagestion de mémoire, la précision locale et le potentiel de prallélisation. 
